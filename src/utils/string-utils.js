@@ -19,6 +19,21 @@ class StringUtils {
       return inputString;
     }
   }
+
+  /*******************************************************************************************
+   * Processes the given string to delete special characters
+   * This is used by the getParentLabelByKey and getMultilingualLabelByKey helpers.
+   *******************************************************************************************/
+  static cleanString(inputString) {
+    if (typeof inputString === 'string') {
+      return inputString.replace(
+          /[\sÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘\.\-_!Â¡\|&;\$%@"<>\(\)\+,#@%]/g,
+          '',
+      );
+    } else {
+      return '';
+    }
+  }
 }
 
 export {StringUtils};
