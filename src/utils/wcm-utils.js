@@ -76,7 +76,7 @@ class WCMUtils {
    * replace - the character or sequence used to replace
    * trim - when 'true', will trim the string before returning result.
    * str = "my test", search = " ", replace = "-", trim = "true"
-   * -> XWidgetCommon.actions.separteStringBySeparation(str, search, replace, trim)
+   * -> WCMUtils.separateStringBySeparator(str, search, replace, trim)
    * -> result = "my-test"
    *******************************************************************************************/
   static separateStringBySeparator(str, search, replace, trim = true) {
@@ -85,7 +85,7 @@ class WCMUtils {
         str = str.trim();
       }
 
-      return str.replace(new RegExp(this.constructor.escapeRegExp(search), 'g'), replace);
+      return str.replace(new RegExp(this.escapeRegExp(search), 'g'), replace);
     }
     return '';
   }

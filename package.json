@@ -11,7 +11,12 @@
     "lib",
     "src"
   ],
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bentoboxes/wcm-utils.git"
+  },
+  "homepage": "https://github.com/bentoboxes/wcm-utils#readme",
+  "keywords": ["ibm-wcm", "wcm"],
   "author": {
     "name": "Alex Arriaga",
     "email": "alex.arriaga@webtraining.world",
@@ -27,7 +32,7 @@
       "email": "rafael.gonzalez@base22.com"
     }
   ],
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
