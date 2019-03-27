@@ -16,7 +16,10 @@
     "url": "git+https://github.com/bentoboxes/wcm-utils.git"
   },
   "homepage": "https://github.com/bentoboxes/wcm-utils#readme",
-  "keywords": ["ibm-wcm", "wcm"],
+  "keywords": [
+    "ibm-wcm",
+    "wcm"
+  ],
   "author": {
     "name": "Alex Arriaga",
     "email": "alex.arriaga@webtraining.world",
@@ -40,6 +43,7 @@
     "cross-env": "^5.2.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.0"
+    "@babel/polyfill": "^7.4.0",
+    "moment": "^2.24.0"
   }
 }
