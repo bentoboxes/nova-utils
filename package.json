@@ -1,10 +1,14 @@
 {
   "name": "@bentoboxes/wcm-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
-  "main": "./lib/index.js",
+  "module": "dist/wcm-utils.bundle.esm.js",
+  "browser": "dist/wcm-utils.bundle.browser.js",
+  "umd": "dist/wcm-utils.bundle.umd.js",
+  "main": "dist/wcm-utils.bundle.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "prepublish": "npm run build"
   },
   "files": [
@@ -40,7 +44,11 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "rollup": "^1.7.4",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.2",
+    "rollup-plugin-node-resolve": "^4.0.1"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
