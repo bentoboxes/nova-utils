@@ -1,4 +1,4 @@
-class WCMUtils {
+class IBMWCMUtils {
   /*******************************************************************************************
    * Obtains the target of a WCM link, e.g. <a href="http://base22.com" target="_blank"></a>
    * This is used by the getTargetFromWCMLink helper.
@@ -92,4 +92,4 @@ class WCMUtils {
 
 }
 
-export {WCMUtils};
+export {IBMWCMUtils};
