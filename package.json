@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/wcm-utils",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "",
   "module": "dist/wcm-utils.bundle.esm.js",
   "browser": "dist/wcm-utils.bundle.browser.js",
@@ -12,7 +12,7 @@
     "prepublish": "npm run build"
   },
   "files": [
-    "lib",
+    "dist",
     "src"
   ],
   "repository": {
