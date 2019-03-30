@@ -3,8 +3,9 @@ import {StringUtils} from './utils/string-utils';
 import {IBMWCMUtils} from './utils/wcm-utils';
 import {ArrayUtils} from './utils/array-utils';
 import {WebBrowserUtils} from './utils/web-browser-utils';
+import {VueUtils} from './utils/vue-utils';
 
-export {StringUtils, DateUtils, IBMWCMUtils, ArrayUtils, WebBrowserUtils};
+export {StringUtils, DateUtils, IBMWCMUtils, ArrayUtils, WebBrowserUtils, VueUtils};
 
 //  Following code is not needed anymore thanks to Rollup configuration
 // class WindowNamespaceGenerator {
