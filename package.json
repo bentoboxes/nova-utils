@@ -1,11 +1,10 @@
 {
   "name": "@bentoboxes/wcm-utils",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "",
   "module": "dist/wcm-utils.bundle.esm.js",
-  "browser": "dist/wcm-utils.bundle.browser.js",
-  "umd": "dist/wcm-utils.bundle.umd.js",
-  "main": "dist/wcm-utils.bundle.js",
+  "unpkg": "dist/wcm-utils.bundle.browser.js",
+  "main": "dist/wcm-utils.bundle.umd.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -49,6 +48,7 @@
     "prettier": "^1.16.4",
     "rollup": "^1.7.4",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-buble": "^0.19.6",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-node-resolve": "^4.0.1"
   },
