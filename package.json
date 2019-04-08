@@ -1,10 +1,10 @@
 {
-  "name": "@bentoboxes/wcm-utils",
-  "version": "0.0.5",
+  "name": "@bentoboxes/nova-utils",
+  "version": "0.0.1",
   "description": "",
-  "module": "dist/wcm-utils.bundle.esm.js",
-  "unpkg": "dist/wcm-utils.bundle.browser.js",
-  "main": "dist/wcm-utils.bundle.umd.js",
+  "module": "dist/nova-utils.bundle.esm.js",
+  "unpkg": "dist/nova-utils.bundle.browser.js",
+  "main": "dist/nova-utils.bundle.umd.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -16,9 +16,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bentoboxes/wcm-utils.git"
+    "url": "git+https://github.com/bentoboxes/nova-utils.git"
   },
-  "homepage": "https://github.com/bentoboxes/wcm-utils#readme",
+  "homepage": "https://github.com/bentoboxes/nova-utils#readme",
   "keywords": [
     "ibm-wcm",
     "wcm"

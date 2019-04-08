@@ -1,4 +1,4 @@
-# WCM Utils
+# Nova Utils
 
 This set of utilities are intended to 
 
@@ -7,13 +7,13 @@ Status:
 ## Install
 
 ```bash
-$ npm install --save @bentoboxes/wcm-utils
+$ npm install --save @bentoboxes/nova-utils
 ```
 
 ## Usage
 
 ```javascript
-const { DateUtils } = require("@bentoboxes/wcm-utils");
+const { DateUtils } = require("@bentoboxes/nova-utils");
 
 const dateString = "2019-12-30T12:34:18";
 const inputFormat = "YYYY-MM-DDTHH:mm:ss";

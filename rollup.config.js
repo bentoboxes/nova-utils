@@ -33,7 +33,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      name: "WCMUtils",
+      name: "NovaUtils",
       file: pkg.unpkg,
       format: "iife"
     },
@@ -50,7 +50,7 @@ export default [
     input: "src/index.js",
     // external: ['moment'],
     output: [
-      { file: pkg.main, format: "umd", name: "wcm-utils.bundle.umd" },
+      { file: pkg.main, format: "umd", name: "nova-utils.bundle.umd" },
       { file: pkg.module, format: "es" }
     ],
     plugins
