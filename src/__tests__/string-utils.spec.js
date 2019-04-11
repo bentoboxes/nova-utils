@@ -50,3 +50,10 @@ test('transforms a string from kebab-case to camelCase notation', () => {
 
   expect(resultingString).toBe(expectedString);
 });
+
+test('checks if a string contains a substring', () => {
+  const inputString = 'Let\'s find a substring like this emoji 🐯 in this string';
+  const wordToFind = '🐯';
+  const resultingString = StringUtils.contains(inputString, wordToFind);
+  expect(resultingString).toBe(true);
+});
