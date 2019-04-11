@@ -29,7 +29,7 @@ DateUtils.format(dateString, inputFormat, outputFormat);
 ├── CODE-OF-CONDUCT.md
 ├── LICENSE.md
 ├── README.md
-├── babel.config.js                         Used by Jest for allow "import" in *.spec.js files
+├── babel.config.js                         Used by Jest for allowing the "import" instructions in *.spec.js files
 ├── dist
 │   ├── nova-utils.bundle.browser.js
 │   ├── nova-utils.bundle.esm.js
