@@ -1,8 +1,16 @@
 import moment from 'moment';
 
+/** Class with static methods related to dates' management */
 class DateUtils {
 
-  static formatDate(date, outputFormat = 'DD/MM/YYYY', inputFormat = 'YYYY-MM-DDTHH:mm:ss') {
+  /**
+   * Formats a string date using an output format and input format
+   * @param {string} date - The date string to be formatted
+   * @param {string} outputFormat='DD/MM/YYYY' - The desired output format
+   * @param {string} inputFormat='YYYY-MM-DD HH:mm:ss' - The format of the input string, it is used to parse the date parameter
+   * @retun {string} The formatted date
+   */
+  static formatDate(date, outputFormat = 'DD/MM/YYYY', inputFormat = 'YYYY-MM-DD HH:mm:ss') {
     let dateParsed = '';
 
     if (typeof date === 'number') {
