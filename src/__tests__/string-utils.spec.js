@@ -14,6 +14,13 @@ test('deletes special characters in a given string', () => {
   expect(resultingString).toBe(expectedString);
 });
 
+test('capitalizes a string', () => {
+  const inputString = 'this string should be capitalized';
+  const resultingString = StringUtils.capitalize(inputString);
+  const expectedString = 'This String Should Be Capitalized';
+  expect(resultingString).toBe(expectedString);
+});
+
 test('performs a global search and replace within a string', () => {
   const inputString = 'We are     just trying to remove white spaces here :)';
   const search = ' ';
