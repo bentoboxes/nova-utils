@@ -7,7 +7,7 @@ class VueUtils {
     return typeof parameter === "undefined";
   }
 
-  static _areAllrequiredParametersSet(Vue, componentMetadata) {
+  static _areAllRequiredParametersSet(Vue, componentMetadata) {
     let isEverythingOk = true;
     if (this._isUndefined(Vue)) {
       isEverythingOk = false;
