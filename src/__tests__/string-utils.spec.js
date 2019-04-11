@@ -42,3 +42,11 @@ test('creates an slug string', () => {
 
   expect(resultingString).toBe(expectedString);
 });
+
+test('transforms a string from kebab-case to camelCase notation', () => {
+  const inputString = 'label-component-title';
+  const resultingString = StringUtils.kebabToCamelCase(inputString);
+  const expectedString = 'labelComponentTitle';
+
+  expect(resultingString).toBe(expectedString);
+});
