@@ -1,7 +1,11 @@
+/** A class with static methods related to strings manipulation */
 class StringUtils {
-  /*******************************************************************************************
-   * Cut an string into an specific length of chars
-   *******************************************************************************************/
+  /**
+   * Cuts an string into an specific length of chars
+   * @param {string} inputString - The input string to be cut
+   * @param {number} length - The minimal characters the string should have
+   * @return {string} The cut string
+   */
   static cutString(inputString, length) {
     inputString = inputString
         .replace(/\s{2,}/gi, ' ')
@@ -20,10 +24,12 @@ class StringUtils {
     }
   }
 
-  /*******************************************************************************************
+  /**
    * Processes the given string to delete special characters
-   * This is used by the getParentLabelByKey and getMultilingualLabelByKey helpers.
-   *******************************************************************************************/
+   * This is used by the getParentLabelByKey() and getMultilingualLabelByKey() helpers.
+   * @param {string} inputString - The input string to be cleaned
+   * @return {string} The clean string
+   */
   static cleanString(inputString) {
     if (typeof inputString === 'string') {
       return inputString.replace(
@@ -35,6 +41,11 @@ class StringUtils {
     }
   }
 
+  /**
+   * Capitalizes an input string
+   * @param {string} inputString - The input string to be capitalized
+   * @return {string} The capitalized string
+   * */
   static capitalize(inputString) {
     const splitStr = inputString.toLowerCase().split(' ');
     for (let i = 0; i < splitStr.length; i++) {
@@ -54,15 +65,17 @@ class StringUtils {
     return inputString.indexOf(wordToFind) > -1;
   };
 
-  /*******************************************************************************************
+  /**
    * Processes the given string to escape special meta characters used within
    * Regular Expressions. This is used by the replace helper.
-   *******************************************************************************************/
-  static escapeRegExp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+   * @param {string} inputString - The input string to be escaped
+   * @return {string} The escaped string
+   */
+  static escapeRegExp(inputString) {
+    return inputString.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
   }
 
-  /*******************************************************************************************
+  /**
    * Performs a global search and replace within a string.
    * inputString - the input string within which the search and replace will be performed
    * search - the character or sequence to search
@@ -71,8 +84,13 @@ class StringUtils {
    * inputString = "my test", search = " ", replace = "-", trim = "true"
    * -> WCMUtils.separateStringBySeparator(inputString, search, replace, trim)
    * -> result = "my-test"
-   *******************************************************************************************/
-  static separateStringBySeparator(inputString, search, replace, trim = true) {
+   * @param {string} inputString - The input string where to search and replace a substring
+   * @param {string} search - The string to be found
+   * @param {string} replace - The string to be used as replacement
+   * @param {boolean} trim=true - Remove whitespaces at the beginning and at the end of the resulting string
+   * @return {string} The resulting string after replacing the desired substring
+   */
+  static replaceStringSequence(inputString, search, replace, trim = true) {
     if (typeof inputString === 'string') {
       if (trim) {
         inputString = inputString.trim();

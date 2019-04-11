@@ -1,3 +1,4 @@
+/** Class with static methods for arrays processing */
 class ArrayUtils {
   /**
    * Allows to get the index of an object in an array

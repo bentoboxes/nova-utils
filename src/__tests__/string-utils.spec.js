@@ -42,9 +42,9 @@ test('performs a global search and replace within a string', () => {
   const replace = '-';
   const trim = true;
 
-  const resultingString = StringUtils.separateStringBySeparator(inputString, search, replace, trim);
+  const resultingString = StringUtils.replaceStringSequence(inputString, search, replace, trim);
 
-  // Would you like to have a cleaner "slug", take a look at StringUtils.createSlug();
+  // Would you like to have a cleaner "slug"? Take a look at StringUtils.createSlug();
   const expectedString = 'We-are-----just-trying-to-remove-white-spaces-here-:)';
   expect(resultingString).toBe(expectedString);
 });
