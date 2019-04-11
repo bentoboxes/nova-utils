@@ -28,9 +28,11 @@ class ArrayUtils {
    * @static
    */
   static getUniqueItemsInArrayByFieldName(array, fieldToBeUnique) {
-    var temporaryArray = [];
-    for (var i = 0, length = array.length; i < length; i++) {
-      var current = array[i];
+    let temporaryArray = [];
+
+    for (let i = 0, length = array.length; i < length; i++) {
+      let current = array[i];
+
       if (
           this.getObjectIndexInArrayByField(
               temporaryArray,
