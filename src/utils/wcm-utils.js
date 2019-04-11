@@ -4,10 +4,10 @@ class IBMWCMUtils {
    * This is used by the getTargetFromWCMLink helper.
    *******************************************************************************************/
   static getTargetFromWCMLink(link) {
-    var target = '_self';
-    if (typeof link !== 'undefined' && typeof $ !== 'undefined') {
-      // TODO: this was using jQuery, change it to use Vanilly JS
-      target = $(link).attr('target');
+    let target = '_self';
+    if (typeof link === 'string') {
+      const pattern = /.*target="(\w*)".*/;
+      target = link.replace(pattern, '$1').trim();
     }
     return target;
   }
