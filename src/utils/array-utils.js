@@ -1,7 +1,10 @@
 class ArrayUtils {
-  /*******************************************************************************************
+  /**
    * Allows to get the index of an object in an array
-   *******************************************************************************************/
+   * @param {object[]} array - The input array to find an object
+   * @param {object} object - The object to be found
+   * @param {string} field - The field name to be used to compare and find the object
+   */
   static getObjectIndexInArrayByField(array, object, field) {
     for (var i = 0, length = array.length; i < length; i++) {
       if (
@@ -14,12 +17,12 @@ class ArrayUtils {
     return -1;
   }
 
-  /*******************************************************************************************
+  /**
    * Allows get unique elements in an array, the "unicity" is given by a determinate field
    * Sample array of items = [{title: "News 1"}, {title: "News 2"}, {title: "News 1"}]
    * -> ArrayUtils.getUniqueItemsInArrayByFieldName(items, "title")
    * -> [{title: "News 1"}, {title: "News 2"}]
-   *******************************************************************************************/
+   */
   static getUniqueItemsInArrayByFieldName(array, fieldToBeUnique) {
     var temporaryArray = [];
     for (var i = 0, length = array.length; i < length; i++) {
@@ -37,17 +40,21 @@ class ArrayUtils {
     return temporaryArray;
   }
 
-  /*******************************************************************************************
+  /**
    * Allows to move and item in an array of elements (mutable operation)
    * Sample array of items = [1,2,3]
    * -> ArrayUtils.moveItemInArray(items, 0, 2)
    * -> [2, 3, 1]
-   *******************************************************************************************/
+   * @param {object[]} array - The input array where to run the "move" operation
+   * @param {number} oldIndex - The original index where the object is located
+   * @param {number} newIndex - The index where the object will be moved to
+   * @return {object[]} returns a reference to the array (it is the same array, since this operation is mutable)
+   */
   static moveItemInArray(array, oldIndex, newIndex) {
     if (newIndex >= array.length) {
-      var k = newIndex - this.length;
+      let k = newIndex - array.length;
       while (k-- + 1) {
-        this.push(undefined);
+        array.push(undefined);
       }
     }
     array.splice(newIndex, 0, array.splice(oldIndex, 1)[0]);

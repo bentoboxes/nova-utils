@@ -3,7 +3,7 @@ class WebBrowserUtils {
   /**
    * Returns the version of Internet Explorer {7|8|9|10|etc..} or a -1
    * (indicating the use of another browser).
-   * @return {number} the Internet Explorer version as number
+   * @return {number} The Internet Explorer version as number
    */
   static getInternetExplorerVersion() {
     let rv = -1; // indicating the use of another browser.

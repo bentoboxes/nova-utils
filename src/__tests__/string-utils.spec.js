@@ -21,6 +21,21 @@ test('capitalizes a string', () => {
   expect(resultingString).toBe(expectedString);
 });
 
+test('transforms a string from kebab-case to camelCase notation', () => {
+  const inputString = 'label-component-title';
+  const resultingString = StringUtils.kebabToCamelCase(inputString);
+  const expectedString = 'labelComponentTitle';
+
+  expect(resultingString).toBe(expectedString);
+});
+
+test('checks if a string contains a substring', () => {
+  const inputString = 'Let\'s find a substring like this emoji 🐯 in this string';
+  const wordToFind = '🐯';
+  const resultingString = StringUtils.contains(inputString, wordToFind);
+  expect(resultingString).toBe(true);
+});
+
 test('performs a global search and replace within a string', () => {
   const inputString = 'We are     just trying to remove white spaces here :)';
   const search = ' ';
@@ -41,19 +56,4 @@ test('creates an slug string', () => {
   const expectedString = 'we-are-just-trying-to-remove-white-spaces-here-';
 
   expect(resultingString).toBe(expectedString);
-});
-
-test('transforms a string from kebab-case to camelCase notation', () => {
-  const inputString = 'label-component-title';
-  const resultingString = StringUtils.kebabToCamelCase(inputString);
-  const expectedString = 'labelComponentTitle';
-
-  expect(resultingString).toBe(expectedString);
-});
-
-test('checks if a string contains a substring', () => {
-  const inputString = 'Let\'s find a substring like this emoji 🐯 in this string';
-  const wordToFind = '🐯';
-  const resultingString = StringUtils.contains(inputString, wordToFind);
-  expect(resultingString).toBe(true);
 });
