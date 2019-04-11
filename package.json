@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/nova-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "module": "dist/nova-utils.bundle.esm.js",
   "unpkg": "dist/nova-utils.bundle.browser.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "files": [
     "dist",
@@ -43,7 +44,9 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
+    "babel-jest": "^24.7.1",
     "cross-env": "^5.2.0",
+    "jest": "^24.7.1",
     "jsdoc": "^3.5.5",
     "prettier": "^1.16.4",
     "rollup": "^1.7.4",

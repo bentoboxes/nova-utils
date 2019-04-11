@@ -22,6 +22,31 @@ const outputFormat = "MM/YYYY";
 DateUtils.format(dateString, inputFormat, outputFormat);
 ```
 
+## File Structure
+```
+.
+├── CHANGELOG.md
+├── CODE-OF-CONDUCT.md
+├── LICENSE.md
+├── README.md
+├── babel.config.js                         Used by Jest for allow "import" in *.spec.js files
+├── dist
+│   ├── nova-utils.bundle.browser.js
+│   ├── nova-utils.bundle.esm.js
+│   └── nova-utils.bundle.umd.js
+├── index.html
+├── jest.config.js
+├── package-lock.json
+├── package.json
+├── rollup.config.js
+├── src
+│   ├── __tests__
+│   ├── index.js
+│   └── utils
+└── yarn.lock
+
+```
+
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
