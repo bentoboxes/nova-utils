@@ -53,6 +53,54 @@ class StringUtils {
   static contains(inputString, wordToFind) {
     return inputString.indexOf(wordToFind) > -1;
   };
+
+  /*******************************************************************************************
+   * Processes the given string to escape special meta characters used within
+   * Regular Expressions. This is used by the replace helper.
+   *******************************************************************************************/
+  static escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+  }
+
+  /*******************************************************************************************
+   * Performs a global search and replace within a string.
+   * inputString - the input string within which the search and replace will be performed
+   * search - the character or sequence to search
+   * replace - the character or sequence used to replace
+   * trim - when 'true', will trim the string before returning result.
+   * inputString = "my test", search = " ", replace = "-", trim = "true"
+   * -> WCMUtils.separateStringBySeparator(inputString, search, replace, trim)
+   * -> result = "my-test"
+   *******************************************************************************************/
+  static separateStringBySeparator(inputString, search, replace, trim = true) {
+    if (typeof inputString === 'string') {
+      if (trim) {
+        inputString = inputString.trim();
+      }
+
+      return inputString.replace(new RegExp(this.escapeRegExp(search), 'g'), replace);
+    }
+    return '';
+  }
+
+  // Based on https://github.com/alex-arriaga/slugify
+  static createSlug(str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    // Remove accents, swap ñ for n, etc
+    var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
+    var to = 'aaaaeeeeiiiioooouuuunc------';
+    for (var i = 0, l = from.length; i < l; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
+        .replace(/\s+/g, '-') // Collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // Collapse dashes
+
+    return str;
+  }
 }
 
 export {StringUtils};
