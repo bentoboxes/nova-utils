@@ -2,6 +2,7 @@
 class StringUtils {
   /**
    * Cuts an string into an specific length of chars
+   * @static
    * @param {string} inputString - The input string to be cut
    * @param {number} length - The minimal characters the string should have
    * @return {string} The cut string
@@ -27,6 +28,7 @@ class StringUtils {
   /**
    * Processes the given string to delete special characters
    * This is used by the getParentLabelByKey() and getMultilingualLabelByKey() helpers.
+   * @static
    * @param {string} inputString - The input string to be cleaned
    * @return {string} The clean string
    */
@@ -43,6 +45,7 @@ class StringUtils {
 
   /**
    * Capitalizes an input string
+   * @static
    * @param {string} inputString - The input string to be capitalized
    * @return {string} The capitalized string
    * */
@@ -57,17 +60,31 @@ class StringUtils {
     return splitStr.join(' ');
   }
 
+  /**
+   * Transforms a string from kebab-case to camelCase notation
+   * @static
+   * @param {string} inputString - The input string to be transformed
+   * @return The camelCase string
+   */
   static kebabToCamelCase(inputString) {
     return inputString.replace(/(\-\w)/g, (m) => m[1].toUpperCase());
   }
 
-  static contains(inputString, wordToFind) {
-    return inputString.indexOf(wordToFind) > -1;
+  /**
+   * Allows to check if a string contains a substring
+   * @static
+   * @param {string} inputString - The input string where to find the substring
+   * @param {string} stringToBeFound - The substring to be found
+   * @return {boolean} - True or false depending on the inputs
+   * */
+  static contains(inputString, stringToBeFound) {
+    return inputString.indexOf(stringToBeFound) > -1;
   };
 
   /**
    * Processes the given string to escape special meta characters used within
-   * Regular Expressions. This is used by the replace helper.
+   * regular Expressions. This is used by the replace helper.
+   * @static
    * @param {string} inputString - The input string to be escaped
    * @return {string} The escaped string
    */
@@ -84,6 +101,7 @@ class StringUtils {
    * inputString = "my test", search = " ", replace = "-", trim = "true"
    * -> WCMUtils.separateStringBySeparator(inputString, search, replace, trim)
    * -> result = "my-test"
+   * @static
    * @param {string} inputString - The input string where to search and replace a substring
    * @param {string} search - The string to be found
    * @param {string} replace - The string to be used as replacement
@@ -101,23 +119,28 @@ class StringUtils {
     return '';
   }
 
-  // Based on https://github.com/alex-arriaga/slugify
-  static createSlug(str) {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
+  /**
+   * Creates slug strings, based on https://github.com/alex-arriaga/slugify
+   * @static
+   * @param {string} inputString - The original string that will be the source of our slug
+   * @return {string} The resulting slug
+   */
+  static createSlug(inputString) {
+    inputString = inputString.replace(/^\s+|\s+$/g, ''); // trim
+    inputString = inputString.toLowerCase();
 
     // Remove accents, swap ñ for n, etc
-    var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
-    var to = 'aaaaeeeeiiiioooouuuunc------';
-    for (var i = 0, l = from.length; i < l; i++) {
-      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    const from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
+    const to = 'aaaaeeeeiiiioooouuuunc------';
+    for (let i = 0, l = from.length; i < l; i++) {
+      inputString = inputString.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
     }
 
-    str = str.replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
+    inputString = inputString.replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
         .replace(/\s+/g, '-') // Collapse whitespace and replace by -
         .replace(/-+/g, '-'); // Collapse dashes
 
-    return str;
+    return inputString;
   }
 }
 

@@ -2,12 +2,14 @@
 class ArrayUtils {
   /**
    * Allows to get the index of an object in an array
+   * @static
    * @param {object[]} array - The input array to find an object
    * @param {object} object - The object to be found
    * @param {string} field - The field name to be used to compare and find the object
+   * @return {number} The index of the object, -1 if not found
    */
   static getObjectIndexInArrayByField(array, object, field) {
-    for (var i = 0, length = array.length; i < length; i++) {
+    for (let i = 0, length = array.length; i < length; i++) {
       if (
           array[i][field] === object[field] &&
           array[i][field] === object[field]
@@ -23,6 +25,7 @@ class ArrayUtils {
    * Sample array of items = [{title: "News 1"}, {title: "News 2"}, {title: "News 1"}]
    * -> ArrayUtils.getUniqueItemsInArrayByFieldName(items, "title")
    * -> [{title: "News 1"}, {title: "News 2"}]
+   * @static
    */
   static getUniqueItemsInArrayByFieldName(array, fieldToBeUnique) {
     var temporaryArray = [];
@@ -46,6 +49,7 @@ class ArrayUtils {
    * Sample array of items = [1,2,3]
    * -> ArrayUtils.moveItemInArray(items, 0, 2)
    * -> [2, 3, 1]
+   * @static
    * @param {object[]} array - The input array where to run the "move" operation
    * @param {number} oldIndex - The original index where the object is located
    * @param {number} newIndex - The index where the object will be moved to

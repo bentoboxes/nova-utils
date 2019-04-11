@@ -5,6 +5,7 @@ class DateUtils {
 
   /**
    * Formats a string date using an output format and input format
+   * @static
    * @param {string} date - The date string to be formatted
    * @param {string} outputFormat='DD/MM/YYYY' - The desired output format
    * @param {string} inputFormat='YYYY-MM-DD HH:mm:ss' - The format of the input string, it is used to parse the date parameter
