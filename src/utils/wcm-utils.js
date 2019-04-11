@@ -61,35 +61,6 @@ class IBMWCMUtils {
     return '#';
   }
 
-  /*******************************************************************************************
-   * Processes the given string to escape special meta characters used within
-   * Regular Expressions. This is used by the replace helper.
-   *******************************************************************************************/
-  static escapeRegExp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
-  }
-
-  /*******************************************************************************************
-   * Performs a global search and replace within a string.
-   * str - the input string within which the search and replace will be performed
-   * search - the character or sequence to search
-   * replace - the character or sequence used to replace
-   * trim - when 'true', will trim the string before returning result.
-   * str = "my test", search = " ", replace = "-", trim = "true"
-   * -> WCMUtils.separateStringBySeparator(str, search, replace, trim)
-   * -> result = "my-test"
-   *******************************************************************************************/
-  static separateStringBySeparator(str, search, replace, trim = true) {
-    if (typeof str === 'string') {
-      if (trim) {
-        str = str.trim();
-      }
-
-      return str.replace(new RegExp(this.escapeRegExp(search), 'g'), replace);
-    }
-    return '';
-  }
-
 }
 
 export {IBMWCMUtils};

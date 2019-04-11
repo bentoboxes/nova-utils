@@ -36,7 +36,7 @@ class VueUtils {
    *
    */
   static mountComponent(Vue, componentMetadata) {
-    if (!this._areAllrequiredParametersSet(Vue, componentMetadata)) return;
+    if (!this._areAllRequiredParametersSet(Vue, componentMetadata)) return;
     const { component, options, mountElement } = componentMetadata;
     const Component = Vue.extend(component);
     const instance = new Component(options);
