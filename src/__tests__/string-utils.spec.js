@@ -1,5 +1,12 @@
 import {StringUtils} from '..';
 
+test('cuts a string in an specific characters length', () => {
+  const inputString = 'We are just trying to cut some characters because this string is too long';
+  const resultingString = StringUtils.cutString(inputString, 30);
+  const expectedString = 'We are just trying to cut...';
+  expect(resultingString).toBe(expectedString);
+});
+
 test('performs a global search and replace within a string', () => {
   const inputString = 'We are     just trying to remove white spaces here :)';
   const search = ' ';

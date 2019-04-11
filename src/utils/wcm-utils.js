@@ -17,10 +17,10 @@ class IBMWCMUtils {
    * This is used by the getURLFromWCMLink helper.
    *******************************************************************************************/
   static getURLFromWCMLink(link) {
-    var url = '#';
-    if (typeof link !== 'undefined' && typeof $ !== 'undefined') {
-      // TODO: this was using jQuery, change it to use Vanilly JS
-      url = $(link).attr('href');
+    let url = '#';
+    if (typeof link === 'string') {
+      const pattern = /.*href="(\w*)".*/;
+      url = link.replace(pattern, '$1').trim();
     }
     return url;
   }
