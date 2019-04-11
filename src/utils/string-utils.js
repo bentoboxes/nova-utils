@@ -46,7 +46,6 @@ class StringUtils {
     return splitStr.join(' ');
   }
 
-  // TODO: Add to NovaUtils
   static kebabToCamelCase(inputString) {
     return inputString.replace(/(\-\w)/g, (m) => m[1].toUpperCase());
   }

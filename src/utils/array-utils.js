@@ -38,7 +38,7 @@ class ArrayUtils {
   }
 
   /*******************************************************************************************
-   * Allows to move and item in an array of elements
+   * Allows to move and item in an array of elements (mutable operation)
    * Sample array of items = [1,2,3]
    * -> ArrayUtils.moveItemInArray(items, 0, 2)
    * -> [2, 3, 1]
