@@ -1,6 +1,6 @@
 import {IBMWCMUtils} from '../utils/wcm-utils';
 
-test('gets target from an anchor HTML string', () => {
+test('it gets target from an anchor HTML string', () => {
 
   const link = `
     <a href="https://alex-arriaga.com/" data-target="#something" target="_blank" title="Link">Go to a great blog</a>
@@ -12,7 +12,7 @@ test('gets target from an anchor HTML string', () => {
 
 });
 
-// test('gets URL from an anchor HTML string', () => {
+// test('it gets URL from an anchor HTML string', () => {
 //
 //   const link = `
 //     <a href="https://alex-arriaga.com/" data-target="#something" target="_blank" title="Link">Go to a great blog</a>
