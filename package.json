@@ -9,11 +9,13 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "prepublish": "npm run build",
-    "test:coverage": "jest --collect-coverage",
-    "prettier": "prettier \"src/**/*.+(js|json|less)\"",
+    "prettier": "prettier \"src/**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
+    "test": "jest",
+    "test:coverage": "jest --collect-coverage",
     "test:report": "npm run test:coverage && live-server coverage/lcov-report --entry-file=index.html",
-    "test": "jest"
+    "docs:build": "jsdoc src -r -d docs",
+    "docs": "npm run docs:build && live-server docs --entry-file=index.html"
   },
   "files": [
     "dist",
@@ -35,6 +37,10 @@
   },
   "contributors": [
     {
+      "name": "Alejandro Serrano",
+      "email": "alejandro.serrano@base22.com"
+    },
+    {
       "name": "Eduardo Juarez",
       "email": "eduardo.juarez@base22.com"
     },
@@ -51,7 +57,7 @@
     "babel-jest": "^24.7.1",
     "cross-env": "^5.2.0",
     "jest": "^24.7.1",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "~3.5.5",
     "live-server": "^1.2.1",
     "prettier": "^1.16.4",
     "rollup": "^1.7.4",
