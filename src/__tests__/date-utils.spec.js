@@ -27,3 +27,15 @@ test('it formats a date string with default formats', () => {
 
 });
 
+test('it formats a milliseconds date', () => {
+  // new Date(year, monthIndex, day, hours, minutes, seconds)
+  // Be aware the second parameter is an index (zero-based) not the month number
+  // that means January = 0 and December = 11.
+  const millisecondsDate = new Date(2019,11, 30, 9,43,22).valueOf();
+  const defaultExpectedDate = '30/12/2019';
+
+  const resultingDate = DateUtils.formatDate(millisecondsDate);
+
+  expect(resultingDate).toBe(defaultExpectedDate);
+});
+
