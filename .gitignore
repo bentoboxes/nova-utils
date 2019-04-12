@@ -6,6 +6,7 @@
 
 dist
 lib
+coverage
 
 # Dependency directories
 node_modules
