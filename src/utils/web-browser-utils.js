@@ -7,9 +7,9 @@ class WebBrowserUtils {
    */
   static getInternetExplorerVersion() {
     let rv = -1; // indicating the use of another browser.
-    if (navigator.appName === 'Microsoft Internet Explorer') {
+    if (navigator.appName === "Microsoft Internet Explorer") {
       const ua = navigator.userAgent;
-      const re = new RegExp('MSIE ([0-9]{1,}[.0-9]{0,})');
+      const re = new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})");
       if (re.exec(ua) !== null) {
         rv = parseFloat(RegExp.$1);
       }
@@ -18,4 +18,4 @@ class WebBrowserUtils {
   }
 }
 
-export {WebBrowserUtils};
+export { WebBrowserUtils };

@@ -11,8 +11,8 @@ class ArrayUtils {
   static getObjectIndexInArrayByField(array, object, field) {
     for (let i = 0, length = array.length; i < length; i++) {
       if (
-          array[i][field] === object[field] &&
-          array[i][field] === object[field]
+        array[i][field] === object[field] &&
+        array[i][field] === object[field]
       ) {
         return i;
       }
@@ -34,11 +34,11 @@ class ArrayUtils {
       let current = array[i];
 
       if (
-          this.getObjectIndexInArrayByField(
-              temporaryArray,
-              current,
-              fieldToBeUnique,
-          ) < 0
+        this.getObjectIndexInArrayByField(
+          temporaryArray,
+          current,
+          fieldToBeUnique
+        ) < 0
       ) {
         temporaryArray.push(current);
       }
@@ -69,4 +69,4 @@ class ArrayUtils {
   }
 }
 
-export {ArrayUtils};
+export { ArrayUtils };

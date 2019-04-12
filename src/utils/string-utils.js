@@ -9,15 +9,15 @@ class StringUtils {
    */
   static cutString(inputString, length = 120) {
     inputString = inputString
-        .replace(/\s{2,}/gi, ' ')
-        .replace(/^\s+/gi, '')
-        .replace(/\s+$/gi, '')
-        .replace(/[-,._]+$/, '');
+      .replace(/\s{2,}/gi, " ")
+      .replace(/^\s+/gi, "")
+      .replace(/\s+$/gi, "")
+      .replace(/[-,._]+$/, "");
 
     if (inputString.length > length) {
       for (let i = length - 1; i >= 0; i--) {
-        if (inputString.charAt(i) === ' ') {
-          return inputString.substring(0, i) + '...';
+        if (inputString.charAt(i) === " ") {
+          return inputString.substring(0, i) + "...";
         }
       }
     } else {
@@ -33,13 +33,13 @@ class StringUtils {
    * @return {string} The clean string
    */
   static cleanString(inputString) {
-    if (typeof inputString === 'string') {
+    if (typeof inputString === "string") {
       return inputString.replace(
-          /[\sÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘\.\-_!Â¡\|&;\$%@"<>\(\)\+,#@%]/g,
-          '',
+        /[\sÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘\.\-_!Â¡\|&;\$%@"<>\(\)\+,#@%]/g,
+        ""
       );
     } else {
-      return '';
+      return "";
     }
   }
 
@@ -50,24 +50,25 @@ class StringUtils {
    * @return {string} The capitalized string
    * */
   static capitalize(inputString) {
-    const splitStr = inputString.toLowerCase().split(' ');
+    const splitStr = inputString.toLowerCase().split(" ");
     for (let i = 0; i < splitStr.length; i++) {
       // You do not need to check if i is larger than splitStr length, as your for does that for you
       // Assign it back to the array
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
     // Directly return the joined string
-    return splitStr.join(' ');
+    return splitStr.join(" ");
   }
 
   /**
    * Transforms a string from kebab-case to camelCase notation
    * @static
    * @param {string} inputString - The input string to be transformed
-   * @return The camelCase string
+   * @return {string} The camelCase string
    */
   static kebabToCamelCase(inputString) {
-    return inputString.replace(/(\-\w)/g, (m) => m[1].toUpperCase());
+    return inputString.replace(/(\-\w)/g, m => m[1].toUpperCase());
   }
 
   /**
@@ -79,7 +80,7 @@ class StringUtils {
    * */
   static contains(inputString, stringToBeFound) {
     return inputString.indexOf(stringToBeFound) > -1;
-  };
+  }
 
   /**
    * Processes the given string to escape special meta characters used within
@@ -89,7 +90,7 @@ class StringUtils {
    * @return {string} The escaped string
    */
   static escapeRegExp(inputString) {
-    return inputString.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+    return inputString.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
   }
 
   /**
@@ -109,14 +110,17 @@ class StringUtils {
    * @return {string} The resulting string after replacing the desired substring
    */
   static replaceStringSequence(inputString, search, replace, trim = true) {
-    if (typeof inputString === 'string') {
+    if (typeof inputString === "string") {
       if (trim) {
         inputString = inputString.trim();
       }
 
-      return inputString.replace(new RegExp(this.escapeRegExp(search), 'g'), replace);
+      return inputString.replace(
+        new RegExp(this.escapeRegExp(search), "g"),
+        replace
+      );
     }
-    return '';
+    return "";
   }
 
   /**
@@ -126,22 +130,26 @@ class StringUtils {
    * @return {string} The resulting slug
    */
   static createSlug(inputString) {
-    inputString = inputString.replace(/^\s+|\s+$/g, ''); // trim
+    inputString = inputString.replace(/^\s+|\s+$/g, ""); // trim
     inputString = inputString.toLowerCase();
 
     // Remove accents, swap ñ for n, etc
-    const from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;';
-    const to = 'aaaaeeeeiiiioooouuuunc------';
+    const from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    const to = "aaaaeeeeiiiioooouuuunc------";
     for (let i = 0, l = from.length; i < l; i++) {
-      inputString = inputString.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+      inputString = inputString.replace(
+        new RegExp(from.charAt(i), "g"),
+        to.charAt(i)
+      );
     }
 
-    inputString = inputString.replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
-        .replace(/\s+/g, '-') // Collapse whitespace and replace by -
-        .replace(/-+/g, '-'); // Collapse dashes
+    inputString = inputString
+      .replace(/[^a-z0-9 -]/g, "") // Remove invalid chars
+      .replace(/\s+/g, "-") // Collapse whitespace and replace by -
+      .replace(/-+/g, "-"); // Collapse dashes
 
     return inputString;
   }
 }
 
-export {StringUtils};
+export { StringUtils };

@@ -7,10 +7,10 @@ class IBMWCMUtils {
    * @return {string} the "target" HTML attribute
    */
   static getTargetFromWCMLink(link) {
-    let target = '_self';
-    if (typeof link === 'string') {
+    let target = "_self";
+    if (typeof link === "string") {
       const pattern = /.*target="(\w*)".*/;
-      target = link.replace(pattern, '$1').trim();
+      target = link.replace(pattern, "$1").trim();
     }
     return target;
   }
@@ -22,10 +22,10 @@ class IBMWCMUtils {
    * @return {string} the "href" HTML attribute
    */
   static getURLFromWCMLink(link) {
-    let url = '#';
-    if (typeof link === 'string') {
+    let url = "#";
+    if (typeof link === "string") {
       const pattern = /.*href="(\w*)".*/;
-      url = link.replace(pattern, '$1').trim();
+      url = link.replace(pattern, "$1").trim();
     }
     return url;
   }
@@ -38,26 +38,29 @@ class IBMWCMUtils {
    */
   static getURIPathFromWCMURL(url, portalContext = undefined) {
     // We look for the portalContext variable, usually this variable is set in the portal theme
-    if (typeof url === 'string') {
-      let virtualPortalContext = '';
+    if (typeof url === "string") {
+      let virtualPortalContext = "";
 
-      if (typeof portalContext !== 'undefined') {
+      if (typeof portalContext !== "undefined") {
         virtualPortalContext = portalContext;
-      } else if (typeof window.portalContext !== 'undefined' && window.portalContext !== 'none') {
+      } else if (
+        typeof window.portalContext !== "undefined" &&
+        window.portalContext !== "none"
+      ) {
         virtualPortalContext = window.portalContext;
       }
 
       return url
-          .replace(
-              '/wps/wcm/myconnect/' + virtualPortalContext,
-              '?1dmy&urile=wcm%3apath%3a',
-          )
-          .replace(
-              '/wps/wcm/connect/' + virtualPortalContext,
-              '?1dmy&urile=wcm%3apath%3a',
-          );
+        .replace(
+          "/wps/wcm/myconnect/" + virtualPortalContext,
+          "?1dmy&urile=wcm%3apath%3a"
+        )
+        .replace(
+          "/wps/wcm/connect/" + virtualPortalContext,
+          "?1dmy&urile=wcm%3apath%3a"
+        );
     } else {
-      return '#';
+      return "#";
     }
   }
 
@@ -68,13 +71,14 @@ class IBMWCMUtils {
    * @return {string} a Youtube URL ready to be embedded in an iframe
    * */
   static convertYoutubeUrlToBeEmbedded(youtubeURL) {
-    if (typeof youtubeURL === 'string') {
-      const youtubeKey = youtubeURL.substring(youtubeURL.indexOf('watch?v=') + 8);
-      return 'https://www.youtube.com/embed/' + youtubeKey;
+    if (typeof youtubeURL === "string") {
+      const youtubeKey = youtubeURL.substring(
+        youtubeURL.indexOf("watch?v=") + 8
+      );
+      return "https://www.youtube.com/embed/" + youtubeKey;
     }
-    return '#';
+    return "#";
   }
-
 }
 
-export {IBMWCMUtils};
+export { IBMWCMUtils };

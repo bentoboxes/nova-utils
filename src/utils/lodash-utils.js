@@ -3,7 +3,6 @@ import _ from "lodash";
 /** Class with static method for lodash */
 
 class LodashUtilsSingleton {
-
   /**
    * Constructor restricted to this class itself
    */

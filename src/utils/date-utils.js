@@ -1,11 +1,10 @@
-import moment from 'moment';
+import moment from "moment";
 
-const DEFAULT_INPUT_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-const DEFAULT_OUTPUT_FORMAT = 'DD/MM/YYYY';
+const DEFAULT_INPUT_FORMAT = "YYYY-MM-DD HH:mm:ss";
+const DEFAULT_OUTPUT_FORMAT = "DD/MM/YYYY";
 
 /** Class with static methods related to dates' management */
 class DateUtils {
-
   /**
    * Formats a string or milliseconds date using an output format and input format
    * @static
@@ -14,11 +13,14 @@ class DateUtils {
    * @param {string} inputFormat='YYYY-MM-DD HH:mm:ss' - The format of the input string, it is used to parse the date parameter
    * @retun {string} The formatted date
    */
-  static formatDate(date,
-                    outputFormat = DEFAULT_OUTPUT_FORMAT, inputFormat = DEFAULT_INPUT_FORMAT) {
+  static formatDate(
+    date,
+    outputFormat = DEFAULT_OUTPUT_FORMAT,
+    inputFormat = DEFAULT_INPUT_FORMAT
+  ) {
     let dateParsed = null;
 
-    if (typeof date === 'number') {
+    if (typeof date === "number") {
       date = parseInt(date);
       dateParsed = moment(date); // Date in milliseconds
     } else {
@@ -31,10 +33,10 @@ class DateUtils {
       // }
     }
 
-    return dateParsed.isValid() ?
-        dateParsed.format(outputFormat) // It uses the format() of moment.js
-        : date;
+    return dateParsed.isValid()
+      ? dateParsed.format(outputFormat) // It uses the format() of moment.js
+      : date;
   }
 }
 
-export {DateUtils};
+export { DateUtils };
