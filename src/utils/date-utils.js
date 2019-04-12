@@ -31,7 +31,7 @@ class DateUtils {
       // }
     }
 
-    return (dateParsed.isValid() && typeof outputFormat !== 'undefined') ?
+    return dateParsed.isValid() ?
         dateParsed.format(outputFormat) // It uses the format() of moment.js
         : date;
   }

@@ -27,6 +27,16 @@ test('it formats a date string with default formats', () => {
 
 });
 
+test('it tries to format a non-valid date string with default formats', () => {
+
+  // If no parameters are set, then it will use the defaults
+  const formattedDate = DateUtils.formatDate('0000-00-30 13:25:47');
+  const expectedDate = '0000-00-30 13:25:47';
+
+  expect(formattedDate).toBe(expectedDate);
+
+});
+
 test('it formats a milliseconds date', () => {
   // new Date(year, monthIndex, day, hours, minutes, seconds)
   // Be aware the second parameter is an index (zero-based) not the month number
