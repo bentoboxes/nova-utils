@@ -4,10 +4,10 @@ class StringUtils {
    * Cuts an string into an specific length of chars
    * @static
    * @param {string} inputString - The input string to be cut
-   * @param {number} length - The minimal characters the string should have
+   * @param {number} [length=120] - The minimal characters the string should have
    * @return {string} The cut string
    */
-  static cutString(inputString, length) {
+  static cutString(inputString, length = 120) {
     inputString = inputString
         .replace(/\s{2,}/gi, ' ')
         .replace(/^\s+/gi, '')
