@@ -1,6 +1,6 @@
 import {ArrayUtils} from '../index';
 
-test('finds an object by comparing an specific field', () => {
+test('it finds an object by comparing an specific field', () => {
 
   const array = [
     {title: 'A', summary: 'SA'},
@@ -16,7 +16,7 @@ test('finds an object by comparing an specific field', () => {
   expect(index).toBe(1);
 });
 
-test('gets unique elements in an array ', () => {
+test('it gets unique elements in an array ', () => {
   const array = [
     {title: 'A', summary: 'SA'},
     {title: 'B', summary: 'SB1'},
@@ -34,7 +34,7 @@ test('gets unique elements in an array ', () => {
   expect(arrayWithUniqueElements).toEqual(expectedArray);
 });
 
-test('moves an object in an array from one position (index) to other', () => {
+test('it moves an object in an array from one position (index) to other', () => {
   const array = [{title: 'A'}, {title: 'B'}, {title: 'C'}];
   const arrayMoved = [{title: 'B'}, {title: 'C'}, {title: 'A'}];
 
