@@ -10,6 +10,8 @@
     "dev": "rollup -c -w",
     "prepublish": "npm run build",
     "test:coverage": "jest --collect-coverage",
+    "prettier": "prettier \"src/**/*.+(js|json|less)\"",
+    "format": "npm run prettier -- --write",
     "test:report": "npm run test:coverage && live-server coverage/lcov-report --entry-file=index.html",
     "test": "jest"
   },
