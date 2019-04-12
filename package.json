@@ -10,6 +10,7 @@
     "dev": "rollup -c -w",
     "prepublish": "npm run build",
     "test:coverage": "jest --collect-coverage",
+    "test:report": "npm run test:coverage && live-server coverage/lcov-report --entry-file=index.html",
     "test": "jest"
   },
   "files": [
@@ -49,6 +50,7 @@
     "cross-env": "^5.2.0",
     "jest": "^24.7.1",
     "jsdoc": "^3.5.5",
+    "live-server": "^1.2.1",
     "prettier": "^1.16.4",
     "rollup": "^1.7.4",
     "rollup-plugin-babel": "^4.3.2",
