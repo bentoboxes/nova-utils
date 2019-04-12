@@ -56,13 +56,39 @@ test('it performs a global search and replace within a string', () => {
   const inputString = 'We are     just trying to remove white spaces here :)';
   const search = ' ';
   const replace = '-';
-  const trim = true;
+  // const trim = true;
 
-  const resultingString = StringUtils.replaceStringSequence(inputString, search, replace, trim);
+  const resultingString = StringUtils.replaceStringSequence(inputString, search, replace);
 
   // Would you like to have a cleaner "slug"? Take a look at StringUtils.createSlug();
   const expectedString = 'We-are-----just-trying-to-remove-white-spaces-here-:)';
   expect(resultingString).toBe(expectedString);
+});
+
+test('it performs a global search and replace within a string with not trim enabled', () => {
+  const inputString = '  We-are-just-trying-to-remove-some-special-chars :)  ';
+  const search = ":)";
+  const replace = '-';
+  const trim = false;
+
+  const resultingString = StringUtils.replaceStringSequence(inputString, search, replace, trim);
+
+  // Would you like to have a cleaner "slug"? Take a look at StringUtils.createSlug();
+  const expectedString = '  We-are-just-trying-to-remove-some-special-chars -  ';
+  expect(resultingString).toBe(expectedString);
+});
+
+test('it tries to perform a global search and replace within a non-string parameter', () => {
+  const inputNotAString = 213213123;
+  const search = ' ';
+  const replace = '-';
+  const trim = true;
+
+  const result = StringUtils.replaceStringSequence(inputNotAString, search, replace, trim);
+
+  // Would you like to have a cleaner "slug"? Take a look at StringUtils.createSlug();
+  const expectedString = '';
+  expect(result).toBe(expectedString);
 });
 
 test('it creates an slug string', () => {
