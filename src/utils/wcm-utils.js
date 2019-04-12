@@ -31,7 +31,7 @@ class IBMWCMUtils {
   }
 
   /**
-   * Re-write a WCM URL to its corresponding URI path.
+   * Re-writes a WCM URL to its corresponding URI path.
    * @param {string} url - The url to be re-written
    * @param {string} portalContext - The portal context (IBM WCM virtual portal), which is undefined by default
    * @return {string} a URI path ready to be used to redirect with the IBM portal theme context
@@ -39,9 +39,13 @@ class IBMWCMUtils {
   static getURIPathFromWCMURL(url, portalContext = undefined) {
     // We look for the portalContext variable, usually this variable is set in the portal theme
     if (typeof url === 'string') {
-      const virtualPortalContext = window.portalContext && window.portalContext !== 'none'
-          ? window.portalContext
-          : '';
+      let virtualPortalContext = '';
+
+      if (typeof portalContext !== 'undefined') {
+        virtualPortalContext = portalContext;
+      } else if (typeof window.portalContext !== 'undefined' && window.portalContext !== 'none') {
+        virtualPortalContext = window.portalContext;
+      }
 
       return url
           .replace(
@@ -58,13 +62,13 @@ class IBMWCMUtils {
   }
 
   /**
-   * Re-write a Youtube URL like: https://www.youtube.com/watch?v=THfkgvI_60o
-   * In a new URL to embed the video: https://www.youtube.com/embed/THfkgvI_60o
+   * Re-writes a Youtube URL like: https://www.youtube.com/watch?v=THfkgvI_60o
+   * to create a new URL to embed the video: https://www.youtube.com/embed/THfkgvI_60o
    * @param {string} youtubeURL - The Youtube URL the user could copy directly from a web browser
    * @return {string} a Youtube URL ready to be embedded in an iframe
    * */
   static convertYoutubeUrlToBeEmbedded(youtubeURL) {
-    if (typeof youtubeURL !== 'undefined') {
+    if (typeof youtubeURL === 'string') {
       const youtubeKey = youtubeURL.substring(youtubeURL.indexOf('watch?v=') + 8);
       return 'https://www.youtube.com/embed/' + youtubeKey;
     }

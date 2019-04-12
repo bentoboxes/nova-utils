@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import {IBMWCMUtils} from '../utils/wcm-utils';
 
 test('it gets target from an anchor HTML string', () => {
@@ -12,6 +15,16 @@ test('it gets target from an anchor HTML string', () => {
 
 });
 
+test('it gets target from an invalid input', () => {
+
+  const link = document.createElement('a');
+
+  const target = IBMWCMUtils.getTargetFromWCMLink(link);
+
+  expect(target).toBe('_self');
+
+});
+
 // test('it gets URL from an anchor HTML string', () => {
 //
 //   const link = `
@@ -23,3 +36,56 @@ test('it gets target from an anchor HTML string', () => {
 //   expect(url).toBe('https://alex-arriaga.com/');
 //
 // });
+
+test('it re-writes a WCM URL to its corresponding URI path', () => {
+  const relativeURL = '/wps/wcm/connect/virtual/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+  const resultingURIPath = IBMWCMUtils.getURIPathFromWCMURL(relativeURL);
+  const expectedURIPath = '?1dmy&urile=wcm%3apath%3avirtual/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+  expect(resultingURIPath).toBe(expectedURIPath);
+});
+
+test('it tries to re-write a non-WCM URL to its corresponding URI path', () => {
+  const badURL = 2324323;
+  const resultingURIPath = IBMWCMUtils.getURIPathFromWCMURL(badURL);
+
+  expect(resultingURIPath).toBe('#');
+});
+
+test('it re-writes a WCM URL to its corresponding URI path using a virtual context', () => {
+  const relativeURL = '/wps/wcm/connect/virtual/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+  const virtualContext = 'virtual';
+  const resultingURIPath = IBMWCMUtils.getURIPathFromWCMURL(relativeURL, virtualContext);
+  const expectedURIPath = '?1dmy&urile=wcm%3apath%3a/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+
+  expect(resultingURIPath).toBe(expectedURIPath);
+});
+
+test(
+    'it re-writes a WCM URL to its corresponding URI path using a virtual context defined as global variable',
+    () => {
+      // Global definition
+      window.portalContext = 'virtual';
+
+      const relativeURL = '/wps/wcm/connect/virtual/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+      const resultingURIPath = IBMWCMUtils.getURIPathFromWCMURL(relativeURL);
+      const expectedURIPath = '?1dmy&urile=wcm%3apath%3a/library+content+english/home/news/what-is-going-on-in-the-front-end-word';
+
+      expect(resultingURIPath).toBe(expectedURIPath);
+    });
+
+test('it re-writes a Youtube URL to be embedded', () => {
+  const youtubeURL = 'https://www.youtube.com/watch?v=8P48t_f9JhA';
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(youtubeURL);
+  const expectedURL = 'https://www.youtube.com/embed/8P48t_f9JhA';
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
+test('it re-writes a non-valid Youtube URL to be embedded', () => {
+  const youtubeURL = 234234;
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(youtubeURL);
+  const expectedURL = '#';
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
