@@ -2,24 +2,20 @@ import _ from "lodash";
 
 /** Class with static method for lodash */
 
-class LodashUtils {
+class LodashUtilsSingleton {
 
   /**
    * Constructor restricted to this class itself
    */
   constructor() {
-    if (!LodashUtils.instance) {
-      LodashUtils.instance = _;
+    if (!LodashUtilsSingleton.instance) {
+      LodashUtilsSingleton.instance = _;
     }
-  }
 
-  /**
-   * Static method to return instance of LodashUtils class
-   * @return {object} LodashUtils instance that point to lodash object
-   * */
-  static getInstance() {
-    return LodashUtils.instance;
+    return LodashUtilsSingleton.instance;
   }
 }
+
+const LodashUtils = new LodashUtilsSingleton();
 
 export { LodashUtils };
