@@ -7,11 +7,27 @@ test('it cuts a string in an specific characters length', () => {
   expect(resultingString).toBe(expectedString);
 });
 
+test(
+    'it tries to cut a string in an specific characters length using a bigger number that the string\'s length',
+    () => {
+      const inputString = 'This string will not be cut';
+      const resultingString = StringUtils.cutString(inputString, 255);
+      const expectedString = 'This string will not be cut';
+      expect(resultingString).toBe(expectedString);
+    });
+
 test('it deletes special characters in a given string', () => {
   const inputString = 'this-string$%-may-be-useful-&to create and id or class';
   const resultingString = StringUtils.cleanString(inputString);
   const expectedString = 'thisstringmaybeusefultocreateandidorclass';
   expect(resultingString).toBe(expectedString);
+});
+
+test('it tries to delete special characters in a given string', () => {
+  const inputThatIsNotAString = 234324;
+  const result = StringUtils.cleanString(inputThatIsNotAString);
+  const expectedResult = '';
+  expect(result).toBe(expectedResult);
 });
 
 test('it capitalizes a string', () => {
