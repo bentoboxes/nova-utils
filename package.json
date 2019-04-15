@@ -11,6 +11,7 @@
     "prepublish": "npm run build",
     "prettier": "prettier \"src/**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
+    "lint": "eslint src/",
     "test": "jest",
     "test:coverage": "jest --collect-coverage",
     "test:report": "npm run test:coverage && live-server coverage/lcov-report --entry-file=index.html",
