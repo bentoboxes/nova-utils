@@ -76,6 +76,7 @@ module.exports = {
         before: true
       }
     ],
+    "no-useless-escape": "off",
     "line-comment-position": "off",
     "linebreak-style": ["error", "unix"],
     "lines-around-comment": "off",
