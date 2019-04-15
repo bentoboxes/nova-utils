@@ -3,6 +3,7 @@ class IBMWCMUtils {
   /**
    * Obtains the target of a WCM link, e.g. <a href="http://base22.com" target="_blank"></a>
    * This is used by the getTargetFromWCMLink helper.
+   * @static
    * @param {string} link - the HTML of an HTML anchor tag
    * @return {string} the "target" HTML attribute
    */
@@ -18,6 +19,7 @@ class IBMWCMUtils {
   /**
    * Obtains the URL of a WCM link, e.g. <a href="http://base22.com" target="_blank"></a>
    * This is used by the getURLFromWCMLink helper.
+   * @static
    * @param {string} link - the HTML of an HTML anchor tag
    * @return {string} the "href" HTML attribute
    */
@@ -32,6 +34,7 @@ class IBMWCMUtils {
 
   /**
    * Re-writes a WCM URL to its corresponding URI path.
+   * @static
    * @param {string} url - The url to be re-written
    * @param {string} portalContext - The portal context (IBM WCM virtual portal), which is undefined by default
    * @return {string} a URI path ready to be used to redirect with the IBM portal theme context
@@ -67,6 +70,7 @@ class IBMWCMUtils {
   /**
    * Re-writes a Youtube URL like: https://www.youtube.com/watch?v=THfkgvI_60o
    * to create a new URL to embed the video: https://www.youtube.com/embed/THfkgvI_60o
+   * @static
    * @param {string} youtubeURL - The Youtube URL the user could copy directly from a web browser
    * @return {string} a Youtube URL ready to be embedded in an iframe
    * */

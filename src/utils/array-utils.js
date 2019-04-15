@@ -26,6 +26,9 @@ class ArrayUtils {
    * -> ArrayUtils.getUniqueItemsInArrayByFieldName(items, "title")
    * -> [{title: "News 1"}, {title: "News 2"}]
    * @static
+   * @param {object[]} array - The input array to get unique objects from
+   * @param {string} fieldToBeUnique - The field to be used for "uniqueness" determination
+   * @return {object[]} The array with only unique objects in it
    */
   static getUniqueItemsInArrayByFieldName(array, fieldToBeUnique) {
     let temporaryArray = [];
