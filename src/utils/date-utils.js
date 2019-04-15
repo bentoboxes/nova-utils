@@ -21,7 +21,6 @@ class DateUtils {
     let dateParsed = null;
 
     if (typeof date === "number") {
-      date = parseInt(date);
       dateParsed = moment(date); // Date in milliseconds
     } else {
       // Parse date using moment.js
@@ -57,9 +56,6 @@ class DateUtils {
       let endDateParsed = null;
 
       if (typeof startDate === "number" && typeof endDate === "number") {
-        startDate = parseInt(startDate);
-        endDate = parseInt(endDate);
-
         startDateParsed = moment(startDate);
         endDateParsed = moment(endDate);
 
@@ -68,9 +64,10 @@ class DateUtils {
         endDateParsed = moment(startDate, endDateFormat);
       }
 
-      return dateParsed.isValid()
-      ? moment(endDateParsed).from(startDateParsed, true)
-      : "from: " + startDate + " to: " + endDate;
+      return (startDateParsed.isValid() 
+      && endDateParsed.isValid())
+      ? moment(endDate).from(startDate, true)
+      : startDate + " - " + endDate;
   }
 }
 
