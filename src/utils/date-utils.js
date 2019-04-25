@@ -38,6 +38,20 @@ class DateUtils {
   }
 
   /**
+   * Parses a string date to a JavaScript Date object
+   * @static
+   * @param {string} date - The date string to be parsed
+   * @param {string} inputFormat='YYYY-MM-DD HH:mm:ss' - The format of the input string, it is used to parse the date parameter
+   * @retun {string} The JavaScript Date object
+   */
+  static parseDate(date, inputFormat = DEFAULT_INPUT_FORMAT) {
+    const dateParsed = moment(date, inputFormat);
+
+    // eslint-disable-next-line
+    return dateParsed.isValid() ? dateParsed.toDate() : date;
+  }
+
+  /**
    * Returns a relative date using an start date, end date and input formats
    * @static
    * @param {string|number} startDate - The start date string
@@ -51,21 +65,19 @@ class DateUtils {
     endDate,
     startDateFormat = DEFAULT_INPUT_FORMAT,
     endDateFormat = DEFAULT_INPUT_FORMAT
-    ) {
-      let startDateParsed = null;
-      let endDateParsed = null;
+  ) {
+    let startDateParsed = null;
+    let endDateParsed = null;
 
-      if (typeof startDate === "number" && typeof endDate === "number") {
-        startDateParsed = moment(startDate);
-        endDateParsed = moment(endDate);
+    if (typeof startDate === "number" && typeof endDate === "number") {
+      startDateParsed = moment(startDate);
+      endDateParsed = moment(endDate);
+    } else {
+      startDateParsed = moment(startDate, startDateFormat);
+      endDateParsed = moment(startDate, endDateFormat);
+    }
 
-      } else {
-        startDateParsed = moment(startDate, startDateFormat);
-        endDateParsed = moment(startDate, endDateFormat);
-      }
-
-      return (startDateParsed.isValid() 
-      && endDateParsed.isValid())
+    return startDateParsed.isValid() && endDateParsed.isValid()
       ? moment(endDate).from(startDate, true)
       : startDate + " - " + endDate;
   }
