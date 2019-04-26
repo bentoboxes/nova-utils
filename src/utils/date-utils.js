@@ -47,8 +47,9 @@ class DateUtils {
   static parseDate(date, inputFormat = DEFAULT_INPUT_FORMAT) {
     const dateParsed = moment(date, inputFormat);
 
-    // eslint-disable-next-line
-    return dateParsed.isValid() ? dateParsed.toDate() : date;
+    return dateParsed.isValid()
+      ? dateParsed.toDate() // It uses the format() of moment.js
+      : date;
   }
 
   /**
