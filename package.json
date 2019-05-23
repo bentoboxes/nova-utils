@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/nova-utils",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "",
   "module": "dist/nova-utils.bundle.esm.js",
   "unpkg": "dist/nova-utils.bundle.browser.js",
@@ -71,6 +71,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
+    "he": "^1.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0"
   }
