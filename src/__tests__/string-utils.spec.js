@@ -111,8 +111,8 @@ describe("it cuts a string in an specific characters length", () => {
   test("with valid parameters", () => {
     const inputString =
       "We are just trying to cut some characters because this string is too long";
-    const resultingString = StringUtils.cutString(inputString, 30);
-    const expectedString = "We are just trying to cut...";
+    const resultingString = StringUtils.cutString(inputString, 30, "...");
+    const expectedString = "We are just trying to cut ...";
     expect(resultingString).toBe(expectedString);
   });
 
@@ -129,10 +129,29 @@ describe("it cuts a string in an specific characters length", () => {
       this tutorial was inspired by the official one published by the Carbon LDP team in https://carbonldp.com/blog/2018/11/23/build-a-blog-with-carbon-ldp-and-react-part-1/
       In order to successfully go through this tutorial, JavaScript and CSS knowledge is required.
     `;
-    const resultingString = StringUtils.cutString(inputString);
+    const resultingString = StringUtils.cutString(inputString, 120 , "...");
     const expectedString =
-      "In this tutorial, we are going to be creating an awesome blog engine using two great tools: Angular and Carbon LDP,...";
+      "In this tutorial, we are going to be creating an awesome blog engine using two great tools: Angular and Carbon LDP, ...";
 
     expect(resultingString).toBe(expectedString);
   });
 });
+
+describe("encodes and decodes a HTML entity (text)", () => {
+  test("encodes a HTML entity", () => {
+    const inputString = `foo © bar ≠ baz 𝌆 qux`;
+    const resultingString = StringUtils.encode(inputString);
+    const expectedString = "foo &#xA9; bar &#x2260; baz &#x1D306; qux";
+
+    expect(resultingString).toBe(expectedString);
+  });
+
+  test("decodes a HTML entity", () => {
+    const inputString = `foo &copy; bar &ne; baz &#x1D306; qux`;
+    const resultingString = StringUtils.decode(inputString);
+    const expectedString = "foo © bar ≠ baz 𝌆 qux";
+
+    expect(resultingString).toBe(expectedString);
+  });
+});
+

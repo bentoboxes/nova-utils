@@ -1,3 +1,4 @@
+import he from "he";
 /** A class with static methods related to strings manipulation */
 class StringUtils {
   /**
@@ -5,9 +6,10 @@ class StringUtils {
    * @static
    * @param {string} inputString - The input string to be cut
    * @param {number} [length=120] - The minimal characters the string should have
+   * @param {string} textToAppend - The text to append at the final of the cut string
    * @return {string} The cut string
    */
-  static cutString(inputString, length = 120) {
+  static cutString(inputString, length = 120, textToAppend = "...") {
     inputString = inputString
       .replace(/\s{2,}/gi, " ")
       .replace(/^\s+/gi, "")
@@ -17,7 +19,7 @@ class StringUtils {
     if (inputString.length > length) {
       for (let i = length - 1; i >= 0; i--) {
         if (inputString.charAt(i) === " ") {
-          return inputString.substring(0, i) + "...";
+          return inputString.substring(0, i) + ` ${textToAppend}`;
         }
       }
     } else {
@@ -149,6 +151,26 @@ class StringUtils {
       .replace(/-+/g, "-"); // Collapse dashes
 
     return inputString;
+  }
+
+  /**
+   * This function takes a string of text and encodes (by default) any symbols that aren’t printable ASCII symbols and &, <, >, ", ', and `, replacing them with character references.
+   * This function uses the he https://github.com/mathiasbynens/he library:
+   * @param {string} text The text to be encoded
+   * @param {Object} options An optional object containing optional configuration. Please visit the original project to see all possible configuration keys.
+   */
+  static encode(text, options) {
+    return he.encode(text, options);
+  }
+
+  /**
+   * This function takes a string of HTML and decodes any named and numerical character references in it.
+   * This function uses the he https://github.com/mathiasbynens/he library:
+   * @param {string} text The text to be decoded
+   * @param {Object} options An optional object containing optional configuration. Please visit the original project to see all possible configuration keys.
+   */
+  static decode(text, options) {
+    return he.decode(text, options);
   }
 }
 
