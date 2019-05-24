@@ -73,7 +73,7 @@ class IBMWCMUtils {
    * @static
    * @param {string} youtubeURL - The Youtube URL the user could copy directly from a web browser
    * @return {string} a Youtube URL ready to be embedded in an iframe
-   * */
+   */
   static convertYoutubeUrlToBeEmbedded(youtubeURL) {
     if (typeof youtubeURL === "string") {
       const youtubeKey = youtubeURL.substring(
@@ -84,14 +84,30 @@ class IBMWCMUtils {
     return "#";
   }
 
-  static fixPortalURL(url) {
-    return url.replace(/&amp;/gi, "&");
+  /**
+   * Fix Portal's link URLs special characters such as "&amp;"
+   * @static
+   * @param {string} linkURL - The link URL to be fixed
+   * @return {string} a link URL without characters that prevent the redirection works as expected
+   */
+  static fixPortalLinkURL(linkURL) {
+    return linkURL.replace(/&amp;/gi, "&");
   }
 
-  static fixURLsInItems(items, urlField = "link") {
-    items.forEach(item => {
-      item[urlField] = this.fixPortalURL(item[urlField]);
-    });
+  /**
+   * Fix Portal's link URLs in an array of items this can be used before sending the data.items
+   * to be rendered by a Nova component, e. g. data.items = NovaUtils.IBMWCMUtils.fixURLsInItems(data.items, "linkURL")
+   * @static
+   * @param {object[]} items -  The array of items to be processed
+   * @param {string} linkURLField - The field in each item that has the link URL to be fixed
+   */
+  static fixURLsInItems(items = [], linkURLField = "link") {
+    if (Array.isArray(items)) {
+      items.forEach(item => {
+        item[linkURLField] = this.fixPortalLinkURL(item[linkURLField]);
+      });
+      return items;
+    }
     return items;
   }
 }
