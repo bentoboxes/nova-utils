@@ -6,7 +6,7 @@ moment.tz = tz;
 const INPUT_FORMATS = {
   ISO: "YYYY-MM-DDTHH:mm:ss.sssZ",
   SIMPLE_ISO: "YYYY-MM-DD HH:mm:ss",
-  MILLISECONDS: "x",
+  MILLIS: "x",
   CALENDAR_DATE: "YYYY-MM-DD",
   ORDINAL_DATE: "YYYY-DDD"
 };
@@ -35,7 +35,7 @@ class DateUtils {
     inputFormat = DEFAULT_INPUT_FORMAT,
     outputTimeZone = DEFAULT_TIME_ZONE_OUTPUT,
     inputTimeZone = DEFAULT_TIME_ZONE_INPUT,
-    showTimeZone = true
+    showTimeZone = false
   ) {
     let dateParsed = null;
 
@@ -43,13 +43,33 @@ class DateUtils {
       dateParsed = moment(date, INPUT_FORMATS[inputFormat]);
     else dateParsed = moment(date, inputFormat);
 
-    dateParsed = moment.tz(dateParsed, inputTimeZone);
+    dateParsed.tz(inputTimeZone);
 
     return dateParsed.isValid()
       ? showTimeZone
         ? dateParsed.format(`${outputFormat}, ${outputTimeZone}`)
         : dateParsed.format(outputFormat) // It uses the format() of moment.js
       : date;
+  }
+
+  static formatDateByObj(params) {
+    const {
+      date,
+      outputFormat,
+      inputFormat,
+      outputTimeZone,
+      inputTimeZone,
+      showTimeZone
+    } = params;
+
+    return DateUtils.formatDate(
+      date,
+      outputFormat,
+      inputFormat,
+      outputTimeZone,
+      inputTimeZone,
+      showTimeZone
+    );
   }
 
   /**
