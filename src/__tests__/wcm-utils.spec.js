@@ -95,3 +95,56 @@ test("it re-writes a non-valid Youtube URL to be embedded", () => {
 
   expect(resultingYoutubeURL).toBe(expectedURL);
 });
+
+test("it fixes a link URL provided by IBM / HCL Portal", () => {
+  const expectedLinkURL =
+    "?-9dmy&urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-2";
+  const inputLinkURL =
+    "?-9dmy&amp;urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-2";
+
+  const resultingLinkURL = IBMWCMUtils.fixPortalLinkURL(inputLinkURL);
+
+  expect(resultingLinkURL).toBe(expectedLinkURL);
+});
+
+test("it fixes link URLs in an array of items", () => {
+  const inputArray = [
+    {
+      title: "A great convention is about to start!",
+      linkURL:
+        "?-9dmy&amp;urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-1"
+    },
+    {
+      title: "Another great convention is about to start!",
+      linkURL:
+        "?-9dmy&amp;urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-2"
+    },
+    {
+      title: "A third conference about awesome things!",
+      linkURL:
+        "?-9dmy&amp;urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-3"
+    }
+  ];
+
+  const expectedArray = [
+    {
+      title: "A great convention is about to start!",
+      linkURL:
+        "?-9dmy&urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-1"
+    },
+    {
+      title: "Another great convention is about to start!",
+      linkURL:
+        "?-9dmy&urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-2"
+    },
+    {
+      title: "A third conference about awesome things!",
+      linkURL:
+        "?-9dmy&urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-3"
+    }
+  ];
+
+  const resultingArray = IBMWCMUtils.fixURLsInItems(inputArray, "linkURL");
+
+  expect(resultingArray).toEqual(expectedArray);
+});

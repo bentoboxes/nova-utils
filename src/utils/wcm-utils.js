@@ -95,13 +95,19 @@ class IBMWCMUtils {
   }
 
   /**
-   * Fix Portal's link URLs in a set of items (array) this can be used before sending the data.items
+   * Fix Portal's link URLs in an array of items this can be used before sending the data.items
    * to be rendered by a Nova component, e. g. data.items = NovaUtils.IBMWCMUtils.fixURLsInItems(data.items, "linkURL")
+   * @static
+   * @param {object[]} items -  The array of items to be processed
+   * @param {string} linkURLField - The field in each item that has the link URL to be fixed
    */
-  static fixURLsInItems(items, urlField = "link") {
-    items.forEach(item => {
-      item[urlField] = this.fixPortalLinkURL(item[urlField]);
-    });
+  static fixURLsInItems(items = [], linkURLField = "link") {
+    if (Array.isArray(items)) {
+      items.forEach(item => {
+        item[linkURLField] = this.fixPortalLinkURL(item[linkURLField]);
+      });
+      return items;
+    }
     return items;
   }
 }
