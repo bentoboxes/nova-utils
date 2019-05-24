@@ -4,11 +4,11 @@ import tz from "moment-timezone";
 moment.tz = tz;
 
 const INPUT_FORMATS = {
-  ISO: "YYYY-MM-DDTHH:mm:ss.sssZ",
   SIMPLE_ISO: "YYYY-MM-DD HH:mm:ss",
+  ORDINAL_DATE: "YYYY-DDD",
   MILLIS: "x",
-  CALENDAR_DATE: "YYYY-MM-DD",
-  ORDINAL_DATE: "YYYY-DDD"
+  ISO: "YYYY-MM-DDTHH:mm:ss.sssZ",
+  CALENDAR_DATE: "YYYY-MM-DD"
 };
 
 const DEFAULT_INPUT_FORMAT = INPUT_FORMATS.SIMPLE_ISO;
@@ -37,18 +37,18 @@ class DateUtils {
     inputTimeZone = DEFAULT_TIME_ZONE_INPUT,
     showTimeZone = false
   ) {
-    let dateParsed = null;
-
-    if (inputFormat !== INPUT_FORMATS.SIMPLE_ISO)
-      dateParsed = moment(date, INPUT_FORMATS[inputFormat]);
-    else dateParsed = moment(date, inputFormat);
+    let dateParsed =
+      inputFormat === INPUT_FORMATS.SIMPLE_ISO
+        ? moment(date, inputFormat)
+        : moment(date, INPUT_FORMATS[inputFormat]);
 
     dateParsed.tz(inputTimeZone);
 
+    const formattedDate = showTimeZone
+      ? dateParsed.format(`${outputFormat}, ${outputTimeZone}`)
+      : dateParsed.format(outputFormat); // It uses the format() of moment.js
     return dateParsed.isValid()
-      ? showTimeZone
-        ? dateParsed.format(`${outputFormat}, ${outputTimeZone}`)
-        : dateParsed.format(outputFormat) // It uses the format() of moment.js
+      ? formattedDate // The formatted date
       : date;
   }
 
@@ -80,11 +80,10 @@ class DateUtils {
    * @retun {string} The JavaScript Date object
    */
   static parseDate(date, inputFormat = DEFAULT_INPUT_FORMAT) {
-    let dateParsed = null;
-
-    if (inputFormat !== INPUT_FORMATS.SIMPLE_ISO)
-      dateParsed = moment(date, INPUT_FORMATS[inputFormat]);
-    else dateParsed = moment(date, inputFormat);
+    let dateParsed =
+      inputFormat === INPUT_FORMATS.SIMPLE_ISO
+        ? moment(date, inputFormat)
+        : moment(date, INPUT_FORMATS[inputFormat]);
 
     return dateParsed.isValid()
       ? dateParsed.toDate() // It uses the format() of moment.js
@@ -103,12 +102,12 @@ class DateUtils {
     let startDateParsed = null;
     let endDateParsed = null;
 
-    if (inputFormat !== INPUT_FORMATS.SIMPLE_ISO) {
-      startDateParsed = moment(startDate, INPUT_FORMATS[inputFormat]);
-      endDateParsed = moment(endDate, INPUT_FORMATS[inputFormat]);
-    } else {
+    if (inputFormat === INPUT_FORMATS.SIMPLE_ISO) {
       startDateParsed = moment(startDate, inputFormat);
       endDateParsed = moment(endDate, inputFormat);
+    } else {
+      startDateParsed = moment(startDate, INPUT_FORMATS[inputFormat]);
+      endDateParsed = moment(endDate, INPUT_FORMATS[inputFormat]);
     }
 
     return startDateParsed.isValid() && endDateParsed.isValid()
