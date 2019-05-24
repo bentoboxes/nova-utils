@@ -83,6 +83,17 @@ class IBMWCMUtils {
     }
     return "#";
   }
+
+  static fixPortalURL(url) {
+    return url.replace(/&amp;/gi, "&");
+  }
+
+  static fixURLsInItems(items, urlField = "link") {
+    items.forEach(item => {
+      item[urlField] = this.fixPortalURL(item[urlField]);
+    });
+    return items;
+  }
 }
 
 export { IBMWCMUtils };
