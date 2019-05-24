@@ -102,3 +102,19 @@ test("it call formatDate function through a params object ", () => {
 
   expect(resultingDate).toBe(outputFormattedDate);
 });
+
+test("it call formatDate function through a params object when inputFormat = ISO", () => {
+  const outputFormattedDate = "Feb, CST";
+  const params = {
+    date: "2019-02-23T20:43:23.656Z",
+    outputFormat: "MMM",
+    inputFormat: "ISO",
+    outputTimeZone: "z",
+    inputTimeZone: "America/Chicago",
+    showTimeZone: true
+  };
+
+  const resultingDate = DateUtils.formatDateByObj(params);
+
+  expect(resultingDate).toBe(outputFormattedDate);
+});
