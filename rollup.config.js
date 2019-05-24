@@ -1,35 +1,39 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
-import buble from 'rollup-plugin-buble';
-import {terser} from 'rollup-plugin-terser';
+import resolve from "rollup-plugin-node-resolve";
+import commonjs from "rollup-plugin-commonjs";
+import babel from "rollup-plugin-babel";
+import pkg from "./package.json";
+import buble from "rollup-plugin-buble";
+import { terser } from "rollup-plugin-terser";
+import json from "rollup-plugin-json";
 
 const plugins = [
   resolve(), // so Rollup can find `ms`
   commonjs(), // so Rollup can convert `ms` to an ES module
   babel({
-    exclude: 'node_modules/**',
+    exclude: "node_modules/**",
     presets: [
       [
-        '@babel/env',
+        "@babel/env",
         {
           targets: {
-            edge: '17',
-            firefox: '60',
-            chrome: '67',
-            safari: '11.1',
-            ie: '11',
+            edge: "17",
+            firefox: "60",
+            chrome: "67",
+            safari: "11.1",
+            ie: "11"
           },
-          useBuiltIns: 'usage', // import polyfills for the features that we only use.
+          useBuiltIns: "usage", // import polyfills for the features that we only use.
           // Setting this to "false" will not transform modules (this transformation is done by Rollup).
           // Changed by Alex Arriaga on April 12, 2019
-          modules: false,
-        },
-      ],
-    ],
+          modules: false
+        }
+      ]
+    ]
   }),
-  buble(),
+  buble({
+    exclude: "node_modules/**"
+  }),
+  json()
 ];
 
 // We can use the rollup-plugin-terser to minify our bundle.
@@ -37,53 +41,56 @@ const pluginsWithMinify = [
   resolve(), // so Rollup can find `ms`
   commonjs(), // so Rollup can convert `ms` to an ES module
   babel({
-    exclude: 'node_modules/**',
+    exclude: "node_modules/**",
     presets: [
       [
-        '@babel/env',
+        "@babel/env",
         {
           targets: {
-            edge: '17',
-            firefox: '60',
-            chrome: '67',
-            safari: '11.1',
-            ie: '11',
+            edge: "17",
+            firefox: "60",
+            chrome: "67",
+            safari: "11.1",
+            ie: "11"
           },
-          useBuiltIns: 'usage', // import polyfills for the features that we only use.
+          useBuiltIns: "usage", // import polyfills for the features that we only use.
           // Setting this to "false" will not transform modules (this transformation is done by Rollup).
           // Changed by Alex Arriaga on April 12, 2019
-          modules: false,
-        },
-      ],
-    ],
+          modules: false
+        }
+      ]
+    ]
   }),
-  buble(),
+  buble({
+    exclude: "node_modules/**"
+  }),
+  json(),
   // minify()
-  terser(),
+  terser()
 ];
 
 const browserFriendlyConfiguration = Object.freeze({
-  input: 'src/index.js',
+  input: "src/index.js",
   output: {
-    name: 'NovaUtils',
+    name: "NovaUtils",
     file: pkg.unpkg,
-    format: 'iife',
+    format: "iife"
   },
-  plugins,
+  plugins
 });
 
 const browserFriendlyConfigurationWithMinify = Object.freeze({
-  input: 'src/index.js',
+  input: "src/index.js",
   output: {
-    name: 'NovaUtils',
-    file: pkg.unpkg.replace(/\.js$/, '.min.js'),
-    format: 'iife',
+    name: "NovaUtils",
+    file: pkg.unpkg.replace(/\.js$/, ".min.js"),
+    format: "iife"
   },
-  plugins: pluginsWithMinify,
+  plugins: pluginsWithMinify
 });
 
 const commonJSAndESModulesConfiguration = Object.freeze({
-  input: 'src/index.js',
+  input: "src/index.js",
   // external: [
   // 'moment'
   // 'lodash/random', // The module listed on the external option must match exactly the same as how we imported it in our code
@@ -94,14 +101,14 @@ const commonJSAndESModulesConfiguration = Object.freeze({
   //   'lodash/random': '_.random'
   // },
   output: [
-    {file: pkg.main, format: 'umd', name: 'nova-utils.bundle.umd'},
-    {file: pkg.module, format: 'es'},
+    { file: pkg.main, format: "umd", name: "nova-utils.bundle.umd" },
+    { file: pkg.module, format: "es" }
   ],
-  plugins,
+  plugins
 });
 
 const commonJSAndESModulesConfigurationWithJSMinify = Object.freeze({
-  input: 'src/index.js',
+  input: "src/index.js",
   // external: [
   // 'moment'
   // 'lodash/random', // The module listed on the external option must match exactly the same as how we imported it in our code
@@ -112,10 +119,14 @@ const commonJSAndESModulesConfigurationWithJSMinify = Object.freeze({
   //   'lodash/random': '_.random'
   // },
   output: [
-    {file: pkg.main.replace(/\.js$/, '.min.js'), format: 'umd', name: 'nova-utils.bundle.umd'},
+    {
+      file: pkg.main.replace(/\.js$/, ".min.js"),
+      format: "umd",
+      name: "nova-utils.bundle.umd"
+    }
     // {file: pkg.module.replace(/\.js$/, '.min.js'), format: 'es'},
   ],
-  plugins: pluginsWithMinify,
+  plugins: pluginsWithMinify
 });
 
 export default [
