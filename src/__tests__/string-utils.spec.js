@@ -129,7 +129,7 @@ describe("it cuts a string in an specific characters length", () => {
       this tutorial was inspired by the official one published by the Carbon LDP team in https://carbonldp.com/blog/2018/11/23/build-a-blog-with-carbon-ldp-and-react-part-1/
       In order to successfully go through this tutorial, JavaScript and CSS knowledge is required.
     `;
-    const resultingString = StringUtils.cutString(inputString, 120 , "...");
+    const resultingString = StringUtils.cutString(inputString, 120, "...");
     const expectedString =
       "In this tutorial, we are going to be creating an awesome blog engine using two great tools: Angular and Carbon LDP, ...";
 
@@ -154,4 +154,3 @@ describe("encodes and decodes a HTML entity (text)", () => {
     expect(resultingString).toBe(expectedString);
   });
 });
-
