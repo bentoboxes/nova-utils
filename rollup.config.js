@@ -10,25 +10,25 @@ const plugins = [
   resolve(), // so Rollup can find `ms`
   commonjs(), // so Rollup can convert `ms` to an ES module
   babel({
-    exclude: "node_modules/**",
     presets: [
       [
         "@babel/env",
         {
-          targets: {
-            edge: "17",
-            firefox: "60",
-            chrome: "67",
-            safari: "11.1",
-            ie: "11"
-          },
           useBuiltIns: "usage", // import polyfills for the features that we only use.
+          targets: {
+            safari: "11.1",
+            ie: "11",
+            firefox: "60",
+            edge: "17",
+            chrome: "67"
+          },
           // Setting this to "false" will not transform modules (this transformation is done by Rollup).
           // Changed by Alex Arriaga on April 12, 2019
           modules: false
         }
       ]
-    ]
+    ],
+    exclude: "node_modules/**"
   }),
   buble({
     exclude: "node_modules/**"
@@ -41,25 +41,25 @@ const pluginsWithMinify = [
   resolve(), // so Rollup can find `ms`
   commonjs(), // so Rollup can convert `ms` to an ES module
   babel({
-    exclude: "node_modules/**",
     presets: [
       [
         "@babel/env",
         {
-          targets: {
-            edge: "17",
-            firefox: "60",
-            chrome: "67",
-            safari: "11.1",
-            ie: "11"
-          },
           useBuiltIns: "usage", // import polyfills for the features that we only use.
+          targets: {
+            safari: "11.1",
+            ie: "11",
+            firefox: "60",
+            edge: "17",
+            chrome: "67"
+          },
           // Setting this to "false" will not transform modules (this transformation is done by Rollup).
           // Changed by Alex Arriaga on April 12, 2019
           modules: false
         }
       ]
-    ]
+    ],
+    exclude: "node_modules/**"
   }),
   buble({
     exclude: "node_modules/**"
@@ -70,27 +70,26 @@ const pluginsWithMinify = [
 ];
 
 const browserFriendlyConfiguration = Object.freeze({
-  input: "src/index.js",
+  plugins,
   output: {
     name: "NovaUtils",
-    file: pkg.unpkg,
-    format: "iife"
+    format: "iife",
+    file: pkg.unpkg
   },
-  plugins
+  input: "src/index.js"
 });
 
 const browserFriendlyConfigurationWithMinify = Object.freeze({
-  input: "src/index.js",
+  plugins: pluginsWithMinify,
   output: {
     name: "NovaUtils",
-    file: pkg.unpkg.replace(/\.js$/, ".min.js"),
-    format: "iife"
+    format: "iife",
+    file: pkg.unpkg.replace(/\.js$/, ".min.js")
   },
-  plugins: pluginsWithMinify
+  input: "src/index.js"
 });
 
 const commonJSAndESModulesConfiguration = Object.freeze({
-  input: "src/index.js",
   // external: [
   // 'moment'
   // 'lodash/random', // The module listed on the external option must match exactly the same as how we imported it in our code
@@ -100,15 +99,15 @@ const commonJSAndESModulesConfiguration = Object.freeze({
   // globals: {
   //   'lodash/random': '_.random'
   // },
+  plugins,
   output: [
-    { file: pkg.main, format: "umd", name: "nova-utils.bundle.umd" },
-    { file: pkg.module, format: "es" }
+    { name: "nova-utils.bundle.umd", format: "umd", file: pkg.main },
+    { format: "es", file: pkg.module }
   ],
-  plugins
+  input: "src/index.js"
 });
 
 const commonJSAndESModulesConfigurationWithJSMinify = Object.freeze({
-  input: "src/index.js",
   // external: [
   // 'moment'
   // 'lodash/random', // The module listed on the external option must match exactly the same as how we imported it in our code
@@ -118,15 +117,16 @@ const commonJSAndESModulesConfigurationWithJSMinify = Object.freeze({
   // globals: {
   //   'lodash/random': '_.random'
   // },
+  plugins: pluginsWithMinify,
   output: [
     {
-      file: pkg.main.replace(/\.js$/, ".min.js"),
+      name: "nova-utils.bundle.umd",
       format: "umd",
-      name: "nova-utils.bundle.umd"
+      file: pkg.main.replace(/\.js$/, ".min.js")
     }
     // {file: pkg.module.replace(/\.js$/, '.min.js'), format: 'es'},
   ],
-  plugins: pluginsWithMinify
+  input: "src/index.js"
 });
 
 export default [
