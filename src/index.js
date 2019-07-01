@@ -5,6 +5,7 @@ import { ArrayUtils } from "./utils/array-utils";
 import { WebBrowserUtils } from "./utils/web-browser-utils";
 import { VueUtils } from "./utils/vue-utils";
 import { LodashUtils } from "./utils/lodash-utils";
+import { DeviceUtils } from "./utils/device-utils";
 
 export {
   StringUtils,
@@ -13,7 +14,8 @@ export {
   ArrayUtils,
   WebBrowserUtils,
   VueUtils,
-  LodashUtils
+  LodashUtils,
+  DeviceUtils
 };
 
 //  Following code is not needed anymore thanks to Rollup configuration
