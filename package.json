@@ -9,6 +9,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "prepublish": "npm run build",
+    "publish-to-npm": "node scripts/publishToNpm.js",
     "prettier": "prettier \"src/**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
     "lint": "eslint src/",
