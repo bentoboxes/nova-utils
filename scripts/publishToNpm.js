@@ -27,6 +27,7 @@ function publishToGit(code, stdout, stderr) {
     );
     init();
   } else {
+    console.error(stderr);
     console.log("Oops something went wrong!");
   }
 }

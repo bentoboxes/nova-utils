@@ -6,6 +6,10 @@ import { WebBrowserUtils } from "./utils/web-browser-utils";
 import { VueUtils } from "./utils/vue-utils";
 import { LodashUtils } from "./utils/lodash-utils";
 import { DeviceUtils } from "./utils/device-utils";
+import { HttpClient } from "./http-client";
+import { VERSION_MANAGER } from "./utils/version";
+
+const version = VERSION_MANAGER.version;
 
 export {
   StringUtils,
@@ -15,7 +19,9 @@ export {
   WebBrowserUtils,
   VueUtils,
   LodashUtils,
-  DeviceUtils
+  DeviceUtils,
+  HttpClient,
+  version
 };
 
 //  Following code is not needed anymore thanks to Rollup configuration

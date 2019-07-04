@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/nova-utils",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "description": "",
   "module": "dist/nova-utils.bundle.esm.js",
   "unpkg": "dist/nova-utils.bundle.browser.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "prepublish": "npm run build",
+    "prepublish": "npm run custom-scripts && npm run build",
+    "custom-scripts": "node scripts/app-version-generator.js",
     "publish-to-npm": "node scripts/publishToNpm.js",
     "prettier": "prettier \"src/**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
@@ -69,7 +70,11 @@
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^4.0.1",
-    "rollup-plugin-terser": "^4.0.4"
+    "rollup-plugin-terser": "^4.0.4",
+    "shelljs": "^0.8.3",
+    "npm-api": "^1.0.0",
+    "fs-extra": "^8.0.1",
+    "glob": "^7.1.4"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
