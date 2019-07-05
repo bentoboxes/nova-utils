@@ -1,4 +1,4 @@
-import { LodashUtils } from "..";
+import { LodashUtils } from "../..";
 
 test("it checks Lodash is correctly loaded", () => {
   const lodashInstance = LodashUtils;

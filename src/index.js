@@ -8,6 +8,7 @@ import { LodashUtils } from "./utils/lodash-utils";
 import { DeviceUtils } from "./utils/device-utils";
 import { HttpClient } from "./http-client";
 import { VERSION_MANAGER } from "./utils/version";
+import { MIME_TYPES } from "./enums/mime-types";
 
 const version = VERSION_MANAGER.version;
 
@@ -21,7 +22,8 @@ export {
   LodashUtils,
   DeviceUtils,
   HttpClient,
-  version
+  version,
+  MIME_TYPES
 };
 
 //  Following code is not needed anymore thanks to Rollup configuration

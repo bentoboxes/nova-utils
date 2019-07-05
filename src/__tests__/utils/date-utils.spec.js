@@ -1,4 +1,4 @@
-import { DateUtils } from "../utils/date-utils";
+import { DateUtils } from "../../utils/date-utils";
 
 describe("Test different format dates", () => {
   test("it formats a date string with custom formats", () => {

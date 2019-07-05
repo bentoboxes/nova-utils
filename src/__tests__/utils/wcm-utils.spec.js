@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { IBMWCMUtils } from "../utils/wcm-utils";
+import { IBMWCMUtils } from "../../utils/wcm-utils";
 
 test("it gets target from an anchor HTML string", () => {
   const link = `

@@ -1,4 +1,4 @@
-import { StringUtils } from "..";
+import { StringUtils } from "../..";
 
 test("it capitalizes a string", () => {
   const inputString = "this string should be capitalized";

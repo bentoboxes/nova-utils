@@ -1,4 +1,4 @@
-import { ArrayUtils } from "../index";
+import { ArrayUtils } from "../..";
 
 test("it finds an object by comparing an specific field", () => {
   const array = [
