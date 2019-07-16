@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/nova-utils",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "",
   "module": "dist/nova-utils.bundle.esm.js",
   "unpkg": "dist/nova-utils.bundle.browser.js",
@@ -60,9 +60,12 @@
     "babel-jest": "^24.7.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
+    "fs-extra": "^8.0.1",
+    "glob": "^7.1.4",
     "jest": "^24.7.1",
     "jsdoc": "~3.5.5",
     "live-server": "^1.2.1",
+    "npm-api": "^1.0.0",
     "prettier": "^1.16.4",
     "rollup": "^1.7.4",
     "rollup-plugin-babel": "^4.3.2",
@@ -71,10 +74,7 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-terser": "^4.0.4",
-    "shelljs": "^0.8.3",
-    "npm-api": "^1.0.0",
-    "fs-extra": "^8.0.1",
-    "glob": "^7.1.4"
+    "shelljs": "^0.8.3"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
