@@ -1,6 +1,6 @@
 {
   "name": "@bentoboxes/nova-utils",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "",
   "module": "dist/nova-utils.bundle.esm.js",
   "unpkg": "dist/nova-utils.bundle.browser.js",

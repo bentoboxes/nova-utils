@@ -94,6 +94,22 @@ test("it re-writes a non-valid Youtube URL to be embedded", () => {
   expect(resultingYoutubeURL).toBe(expectedURL);
 });
 
+test("it re-writes a Vimeo URL to be embedded", () => {
+  const vimeoURL = "https://player.vimeo.com/163231391";
+  const resultingVimeoURL = IBMWCMUtils.convertVimeoUrlToBeEmbedded(vimeoURL);
+  const expectedURL = "https://player.vimeo.com/video/163231391";
+
+  expect(resultingVimeoURL).toBe(expectedURL);
+});
+
+test("it re-writes a non-valid Vimeo URL to be embedded", () => {
+  const vimeoURL = 234234;
+  const resultingVimeoURL = IBMWCMUtils.convertVimeoUrlToBeEmbedded(vimeoURL);
+  const expectedURL = "#";
+
+  expect(resultingVimeoURL).toBe(expectedURL);
+});
+
 test("it fixes a link URL provided by IBM / HCL Portal", () => {
   const expectedLinkURL =
     "?-9dmy&urile=wcm%3apath%3a%2Fcontent-english%2Fhome%2Fnews%2F2019-convention-2";

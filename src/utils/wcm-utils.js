@@ -85,6 +85,21 @@ class IBMWCMUtils {
   }
 
   /**
+   * Re-writes a Vimeo URL like: https://vimeo.com/163231391
+   * to create a new URL to embed the video: https://player.vimeo.com/video/163231391
+   * @static
+   * @param {string} vimeoURL - The Vimeo URL the user could copy directly from a web browser
+   * @return {string} a Vimeo URL ready to be embedded in an iframe
+   */
+  static convertVimeoUrlToBeEmbedded(vimeoURL) {
+    if (typeof vimeoURL === "string") {
+      const vimeoKey = vimeoURL.substring(vimeoURL.indexOf(".com/") + 5);
+      return "https://player.vimeo.com/video/" + vimeoKey;
+    }
+    return "#";
+  }
+
+  /**
    * Fix Portal's link URLs special characters such as "&amp;"
    * @static
    * @param {string} linkURL - The link URL to be fixed
