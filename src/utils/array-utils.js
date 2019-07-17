@@ -70,6 +70,62 @@ class ArrayUtils {
     array.splice(newIndex, 0, array.splice(oldIndex, 1)[0]);
     return array; // For testing purposes we return a reference
   }
+
+  /**
+   * Converts a key-value object to an array
+   * -> ArrayUtils.arrayFromObject(obj)
+   * -> []
+   * @static
+   * @param obj - The input object to be converted
+   * @return {Array} returns an array keeping the "key" for further usage
+   */
+  static arrayFromObject(obj) {
+    const array = [];
+
+    /*
+     * {
+     *    key1 : { index: 1, value: 'a'},
+     *    key2 : { index: 2, value: 'b'}
+     * }
+     * =>
+     * [ { key: "key1", index: 1, value: 'a' }, { key: "key2", index: 2, value: 'b' } ]
+     */
+
+    for (let key in obj) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (obj.hasOwnProperty(key)) {
+        // eslint-disable-next-line prefer-object-spread
+        array.push(Object.assign({ key }, obj[key]));
+      }
+    }
+
+    return array;
+  }
+
+  /**
+   * Flats a key-value object to be just key-value without any other properties
+   * -> obj = {
+   *    key1 : { index: 1, value: 'a'},
+   *    key2 : { index: 2, value: 'b'}
+   * }
+   * -> ArrayUtils.flattenKeyValueObject(obj)
+   * -> { key1: 'a', key2: 'b' }
+   * @static
+   * @param obj - The key-value object to be flatten
+   * @return {object} - The flatten object
+   */
+  static flattenKeyValueObject(obj) {
+    const flatObj = {};
+
+    for (let key in obj) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (obj.hasOwnProperty(key)) {
+        flatObj[key] = obj[key].value;
+      }
+    }
+
+    return flatObj;
+  }
 }
 
 export { ArrayUtils };

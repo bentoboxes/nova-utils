@@ -1,5 +1,34 @@
 import { ArrayUtils } from "../..";
 
+test("it flats a key-value object", () => {
+  const object = {
+    key2: { value: "b", index: 2 },
+    key1: { value: "a", index: 1 }
+  };
+
+  const expectedObj = { key2: "b", key1: "a" };
+
+  const resultingObj = ArrayUtils.flattenKeyValueObject(object);
+
+  expect(resultingObj).toEqual(expectedObj);
+});
+
+test("it converts a key-value object to an array", () => {
+  const object = {
+    key2: { value: "b", index: 2 },
+    key1: { value: "a", index: 1 }
+  };
+
+  const expectedArray = [
+    { value: "b", key: "key2", index: 2 },
+    { value: "a", key: "key1", index: 1 }
+  ];
+
+  const resultingArray = ArrayUtils.arrayFromObject(object);
+
+  expect(resultingArray).toEqual(expectedArray);
+});
+
 test("it finds an object by comparing an specific field", () => {
   const array = [
     { title: "A", summary: "SA" },
