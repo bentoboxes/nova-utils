@@ -77,5 +77,34 @@ class WebBrowserUtils {
     document.cookie =
       cookieName + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   }
+
+  /**
+   * Gets all the query string parameters as a key-value object.
+   * This is an "impure" method since it uses the global "window.location" object
+   * @static
+   * @return {object} - An object with the params or empty if not params were detected
+   */
+  static getQueryStringParamsAsObject() {
+    const params = window.location.search.substr(1).split("&");
+
+    if (params.length === 0) {
+      return {};
+    }
+
+    const output = {};
+
+    for (let i = 0; i < params.length; ++i) {
+      // param => paramName=paramValue
+      const paramAsArray = params[i].split("=");
+
+      if (paramAsArray.length === 2) {
+        output[paramAsArray[0]] = decodeURIComponent(
+          paramAsArray[1].replace(/\+/g, " ")
+        );
+      }
+    }
+    return output;
+  }
 }
+
 export { WebBrowserUtils };
