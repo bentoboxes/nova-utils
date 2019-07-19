@@ -105,6 +105,32 @@ class WebBrowserUtils {
     }
     return output;
   }
+
+  /**
+   * Transforms a params object in a query string like output
+   *
+   * -> const input = { "name": "John", "lastName": "Doe", "email": "john.doe@example.com" };
+   * -> const output = NovaUtils.WebBrowserUtils.transformParamsObjectToQueryString(input);
+   *
+   * -> "name=John&lastName=Doe&email=john.doe@example.com"
+   *
+   * @param paramsObject - The object to transform
+   * @param useDecodeURIComponent - A boolean indicating if the method should use "decodeURIComponent"
+   * @default true
+   * @return {string} - The query string compatible output
+   */
+  static transformParamsObjectToQueryString(
+    paramsObject,
+    useDecodeURIComponent = true
+  ) {
+    const urlParams = new URLSearchParams(Object.entries(paramsObject));
+
+    if (useDecodeURIComponent) {
+      return decodeURIComponent(urlParams.toString());
+    }
+
+    return urlParams.toString();
+  }
 }
 
 export { WebBrowserUtils };
