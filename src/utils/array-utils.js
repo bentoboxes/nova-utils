@@ -94,8 +94,7 @@ class ArrayUtils {
     for (let key in obj) {
       // eslint-disable-next-line no-prototype-builtins
       if (obj.hasOwnProperty(key)) {
-        // eslint-disable-next-line prefer-object-spread
-        array.push(Object.assign({ key }, obj[key]));
+        array.push({ key, ...obj[key] });
       }
     }
 
