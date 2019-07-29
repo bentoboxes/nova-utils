@@ -87,15 +87,26 @@ describe("Test different format dates", () => {
   });
 });
 
+test("it parses a date", () => {
+  const inputDate = "2020-12-30 13:44:23";
+
+  const resultingDateObj = DateUtils.parseDate(inputDate);
+  const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+
+  expect(resultingDateObj instanceof Date).toBe(true);
+
+  expect(resultingDateObj.toISOString()).toBe(expectedDateAsString);
+});
+
 test("it call formatDate function through a params object ", () => {
   const outputFormattedDate = "23/02/2019, CST";
   const params = {
-    date: "2019-02-23T20:43:23",
-    outputFormat: "DD/MM/YYYY",
-    inputFormat: "SIMPLE_ISO",
+    showTimeZone: true,
     outputTimeZone: "z",
+    outputFormat: "DD/MM/YYYY",
     inputTimeZone: "America/Chicago",
-    showTimeZone: true
+    inputFormat: "SIMPLE_ISO",
+    date: "2019-02-23T20:43:23"
   };
 
   const resultingDate = DateUtils.formatDateByObj(params);
@@ -106,12 +117,12 @@ test("it call formatDate function through a params object ", () => {
 test("it call formatDate function through a params object when inputFormat = ISO", () => {
   const outputFormattedDate = "Feb, CST";
   const params = {
-    date: "2019-02-23T20:43:23.656Z",
-    outputFormat: "MMM",
-    inputFormat: "ISO",
+    showTimeZone: true,
     outputTimeZone: "z",
+    outputFormat: "MMM",
     inputTimeZone: "America/Chicago",
-    showTimeZone: true
+    inputFormat: "ISO",
+    date: "2019-02-23T20:43:23.656Z"
   };
 
   const resultingDate = DateUtils.formatDateByObj(params);
