@@ -193,34 +193,36 @@ describe("it gets a relative date", () => {
   });
 });
 
-test("it call formatDate function through a params object ", () => {
-  const outputFormattedDate = "23/02/2019, CST";
-  const params = {
-    showTimeZone: true,
-    outputTimeZone: "z",
-    outputFormat: "DD/MM/YYYY",
-    inputTimeZone: "America/Chicago",
-    inputFormat: "SIMPLE_ISO",
-    date: "2019-02-23T20:43:23"
-  };
+describe("it formats a date with a params object", () => {
+  test("using a params object where inputFormat === 'SIMPLE_ISO'", () => {
+    const outputFormattedDate = "23/02/2019, CST";
+    const params = {
+      showTimeZone: true,
+      outputTimeZone: "z",
+      outputFormat: "DD/MM/YYYY",
+      inputTimeZone: "America/Chicago",
+      inputFormat: "SIMPLE_ISO",
+      date: "2019-02-23T20:43:23"
+    };
 
-  const resultingDate = DateUtils.formatDateByObj(params);
+    const resultingDate = DateUtils.formatDateByObj(params);
 
-  expect(resultingDate).toBe(outputFormattedDate);
-});
+    expect(resultingDate).toBe(outputFormattedDate);
+  });
 
-test("it call formatDate function through a params object when inputFormat = ISO", () => {
-  const outputFormattedDate = "Feb, CST";
-  const params = {
-    showTimeZone: true,
-    outputTimeZone: "z",
-    outputFormat: "MMM",
-    inputTimeZone: "America/Chicago",
-    inputFormat: "ISO",
-    date: "2019-02-23T20:43:23.656Z"
-  };
+  test("using a params object where inputFormat === 'ISO'", () => {
+    const outputFormattedDate = "Feb, CST";
+    const params = {
+      showTimeZone: true,
+      outputTimeZone: "z",
+      outputFormat: "MMM",
+      inputTimeZone: "America/Chicago",
+      inputFormat: "ISO",
+      date: "2019-02-23T20:43:23.656Z"
+    };
 
-  const resultingDate = DateUtils.formatDateByObj(params);
+    const resultingDate = DateUtils.formatDateByObj(params);
 
-  expect(resultingDate).toBe(outputFormattedDate);
+    expect(resultingDate).toBe(outputFormattedDate);
+  });
 });
