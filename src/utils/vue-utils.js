@@ -7,7 +7,7 @@ class VueUtils {
     return typeof parameter === "undefined";
   }
 
-  static _areAllRequiredParametersSet(Vue, componentMetadata) {
+  /* static _areAllRequiredParametersSet(Vue, componentMetadata) {
     let isEverythingOk = true;
     if (this._isUndefined(Vue)) {
       isEverythingOk = false;
@@ -22,7 +22,7 @@ class VueUtils {
       isEverythingOk = false;
     }
     return isEverythingOk;
-  }
+  } */
 
   /**
    * @function mountComponent
@@ -35,13 +35,13 @@ class VueUtils {
    * @param {string} componentMetadata.mountElement The element in which the Vue Component will be mounted.
    *
    */
-  static mountComponent(Vue, componentMetadata) {
+  /* static mountComponent(Vue, componentMetadata) {
     if (!this._areAllRequiredParametersSet(Vue, componentMetadata)) return;
     const { component, options, mountElement } = componentMetadata;
     const Component = Vue.extend(component);
     const instance = new Component(options);
     instance.$mount(mountElement);
-  }
+  } */
 }
 
 export { VueUtils };
