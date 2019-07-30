@@ -85,9 +85,7 @@ class DateUtils {
         ? moment(date, inputFormat)
         : moment(date, INPUT_FORMATS[inputFormat]);
 
-    return dateParsed.isValid()
-      ? dateParsed.toDate() // It uses the format() of moment.js
-      : date;
+    return dateParsed.toDate();
   }
 
   /**

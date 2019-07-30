@@ -87,15 +87,58 @@ describe("Test different format dates", () => {
   });
 });
 
-test("it parses a date", () => {
-  const inputDate = "2020-12-30 13:44:23";
+describe("it parses a data", () => {
+  test("with default input format", () => {
+    const inputDate = "2020-12-30 13:44:23";
 
-  const resultingDateObj = DateUtils.parseDate(inputDate);
-  const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+    const resultingDateObj = DateUtils.parseDate(inputDate);
+    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
 
-  expect(resultingDateObj instanceof Date).toBe(true);
+    expect(resultingDateObj instanceof Date).toBe(true);
 
-  expect(resultingDateObj.toISOString()).toBe(expectedDateAsString);
+    expect(resultingDateObj.toISOString()).toBe(expectedDateAsString);
+  });
+
+  test("setting a custom input format", () => {
+    const inputDate = "12/30/2020 13:44:23";
+
+    const inputFormat = "MM/DD/YYYY HH:mm:ss";
+
+    const resultingDateObj = DateUtils.parseDate(inputDate, inputFormat);
+    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+
+    expect(resultingDateObj instanceof Date).toBe(true);
+
+    expect(resultingDateObj.toISOString()).toBe(expectedDateAsString);
+  });
+
+  test("setting a custom input format", () => {
+    const inputDate = "12/30/2020 13:44:23";
+
+    const inputFormat = "MM/DD/YYYY HH:mm:ss";
+
+    const resultingDateObj = DateUtils.parseDate(inputDate, inputFormat);
+    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+
+    expect(resultingDateObj instanceof Date).toBe(true);
+
+    expect(resultingDateObj.toISOString()).toBe(expectedDateAsString);
+  });
+
+  test("with no valid date as input", () => {
+    const inputDate = undefined;
+
+    const inputFormat = "MM/DD/YYYY HH:mm:ss";
+
+    const resultingDateObj = DateUtils.parseDate(inputDate, inputFormat);
+
+    // When no valid date is sent to "parseDate" it will return "today's date"
+    const expectedDateAsString = new Date().getDate();
+
+    expect(resultingDateObj instanceof Date).toBe(true);
+
+    expect(resultingDateObj.getDate()).toBe(expectedDateAsString);
+  });
 });
 
 test("it call formatDate function through a params object ", () => {
