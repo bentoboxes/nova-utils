@@ -96,7 +96,11 @@ class DateUtils {
    * @param {string} inputFormat='YYYY-MM-DD HH:mm:ss' - The format of the input string, it is used to parse the startDate parameter and validate it.
    * @retun {string} The relative date
    */
-  static relativeDate(startDate, endDate, inputFormat = DEFAULT_INPUT_FORMAT) {
+  static relativeDateFromInterval(
+    startDate,
+    endDate,
+    inputFormat = DEFAULT_INPUT_FORMAT
+  ) {
     let startDateParsed = null;
     let endDateParsed = null;
 
@@ -104,12 +108,17 @@ class DateUtils {
       startDateParsed = moment(startDate, inputFormat);
       endDateParsed = moment(endDate, inputFormat);
     } else {
-      startDateParsed = moment(startDate, INPUT_FORMATS[inputFormat]);
-      endDateParsed = moment(endDate, INPUT_FORMATS[inputFormat]);
+      let existingInputFormat = INPUT_FORMATS[inputFormat];
+
+      if (!existingInputFormat) {
+        existingInputFormat = inputFormat;
+      }
+      startDateParsed = moment(startDate, existingInputFormat);
+      endDateParsed = moment(endDate, existingInputFormat);
     }
 
     return startDateParsed.isValid() && endDateParsed.isValid()
-      ? moment(endDate).from(startDate, true)
+      ? moment(endDateParsed).from(startDateParsed, true)
       : startDate + " - " + endDate;
   }
 }

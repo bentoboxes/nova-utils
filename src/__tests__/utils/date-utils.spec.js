@@ -141,6 +141,58 @@ describe("it parses a data", () => {
   });
 });
 
+describe("it gets a relative date", () => {
+  test("with default input format", () => {
+    const startDate = "2020-12-30 13:44:23";
+    const endDate = "2021-06-10 13:44:23";
+
+    const resultingDateObj = DateUtils.relativeDateFromInterval(
+      startDate,
+      endDate
+    );
+
+    const expectedRelativeDate = "5 months";
+
+    expect(typeof expectedRelativeDate).toBe("string");
+
+    expect(resultingDateObj).toBe(expectedRelativeDate);
+  });
+
+  test("with custom input format", () => {
+    const startDate = "2020/30/12 13:44:23";
+    const endDate = "2021/10/06 13:44:23";
+
+    const resultingDateObj = DateUtils.relativeDateFromInterval(
+      startDate,
+      endDate,
+      "YYYY/DD/MM HH:mm:ss"
+    );
+
+    const expectedRelativeDate = "5 months";
+
+    expect(typeof expectedRelativeDate).toBe("string");
+
+    expect(resultingDateObj).toBe(expectedRelativeDate);
+  });
+
+  test("with dates not matching the input format", () => {
+    const startDate = "2020-12-30 13:44:23";
+    const endDate = "2020-12-30 13:44:23";
+
+    const resultingDateObj = DateUtils.relativeDateFromInterval(
+      startDate,
+      endDate,
+      "YYYY/DD/MM HH:mm:ss"
+    );
+
+    const expectedRelativeDate = "2020-12-30 13:44:23 - 2020-12-30 13:44:23";
+
+    expect(typeof expectedRelativeDate).toBe("string");
+
+    expect(resultingDateObj).toBe(expectedRelativeDate);
+  });
+});
+
 test("it call formatDate function through a params object ", () => {
   const outputFormattedDate = "23/02/2019, CST";
   const params = {
