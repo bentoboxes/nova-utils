@@ -1,7 +1,5 @@
 import moment from "moment";
-import tz from "moment-timezone";
-
-moment.tz = tz;
+import "moment-timezone";
 
 const INPUT_FORMATS = {
   SIMPLE_ISO: "YYYY-MM-DD HH:mm:ss",

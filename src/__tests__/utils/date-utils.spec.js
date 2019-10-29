@@ -234,3 +234,10 @@ test("returns moment object", () => {
 
   expect(momentJS.version).toBe(momentVersion);
 });
+
+
+test("returns moment object", () => {
+  const momentTZ = DateUtils.getMomentJS().tz;
+
+  expect(typeof momentTZ).toBe("function");
+});
