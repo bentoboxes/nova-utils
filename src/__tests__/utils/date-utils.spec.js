@@ -226,3 +226,11 @@ describe("it formats a date with a params object", () => {
     expect(resultingDate).toBe(outputFormattedDate);
   });
 });
+
+test("returns moment object", () => {
+  const momentVersion = "2.24.0";
+
+  const momentJS = DateUtils.getMomentJS();
+
+  expect(momentJS.version).toBe(momentVersion);
+});

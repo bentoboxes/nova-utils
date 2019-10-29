@@ -121,6 +121,15 @@ class DateUtils {
       ? moment(endDateParsed).from(startDateParsed, true)
       : startDate + " - " + endDate;
   }
+
+  /**
+   * Returns a relative date using an start date, end date and input formats
+   * @static
+   * @return {Object} Moment
+   */
+  static getMomentJS() {
+    return moment;
+  }
 }
 
 export { DateUtils };
