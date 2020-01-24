@@ -58,9 +58,11 @@ class WebBrowserUtils {
     date.setTime(date.getTime() + expirationTime);
     const expires =
       cookieSession === true
-        ? 0 // Set a 0 expiration time when cookieSession is equals true
-        : date.toUTCString();
-    cookieValue = escape(cookieValue) + "; expires=" + expires;
+        ? ""
+        : "; expires=" + date.toUTCString();
+
+
+    cookieValue = escape(cookieValue) + expires;
     cookieValue =
       cookieValue + ";domain=" + document.location.hostname + ";path=/";
     document.cookie = cookieName + "=" + cookieValue;

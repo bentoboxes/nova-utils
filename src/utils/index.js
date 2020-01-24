@@ -6,6 +6,7 @@ import { WebBrowserUtils } from "./web-browser-utils";
 import { VueUtils } from "./vue-utils";
 import { LodashUtils } from "./lodash-utils";
 import { DeviceUtils } from "./device-utils";
+import {Solr} from "./solr";
 
 export {
   StringUtils,
@@ -15,5 +16,6 @@ export {
   WebBrowserUtils,
   VueUtils,
   LodashUtils,
-  DeviceUtils
+  DeviceUtils,
+  Solr
 };

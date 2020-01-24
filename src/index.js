@@ -7,6 +7,7 @@ import { VueUtils } from "./utils/vue-utils";
 import { LodashUtils } from "./utils/lodash-utils";
 import { DeviceUtils } from "./utils/device-utils";
 import { HttpClient } from "./http-client";
+import { Solr } from "./utils/solr";
 import { VERSION_MANAGER } from "./utils/version";
 import { MIME_TYPES } from "./enums/mime-types";
 
@@ -23,7 +24,8 @@ export {
   DeviceUtils,
   HttpClient,
   version,
-  MIME_TYPES
+  MIME_TYPES,
+  Solr
 };
 
 //  Following code is not needed anymore thanks to Rollup configuration
