@@ -109,6 +109,8 @@ class Solr {
             obj[this.parseMap[key]] = curr[key];
           });
           acc.push(obj);
+
+          return acc;
         }, []);
       }
 
