@@ -39,5 +39,27 @@ describe("Test query string", () => {
     query.addToQuery(query.buildQuery());
     query.addToQuery(query.buildFilters());
     expect(query.query).toBe('?q=authtemplate:news&fq=authtemplate:news');
+  });
+
+
+  test("it has valid query extends", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    query.q('authtemplate:news')
+    expect(query.query).toBe('?q=authtemplate:news');
   })
 });
+
+describe("Test Solr utils", () => {
+  test("it has valid date format", ()=> {
+    const date = Solr.date('2020/01/22 12:00:00', 'YYYY-MM-DD HH:mm:ss');
+    expect(date).toBe('[2020-01-22T12:00:00Z TO *]');
+  });
+
+  test("it has valid from now date ", ()=> {
+    const date = Solr.dateFromNow();
+    expect(date).toBe('[NOW/DAY TO *]');
+  });
+
+});
+

@@ -70,6 +70,28 @@ class DateUtils {
     );
   }
 
+  static formatCustomDate(
+    date,
+    outputFormat = DEFAULT_OUTPUT_FORMAT,
+    inputFormat = DEFAULT_INPUT_FORMAT,
+    outputTimeZone = DEFAULT_TIME_ZONE_OUTPUT,
+    inputTimeZone = DEFAULT_TIME_ZONE_INPUT,
+    showTimeZone = false
+  ) {
+    let dateParsed = moment(date, inputFormat);
+
+    if(showTimeZone){
+      dateParsed.tz(inputTimeZone);
+    }
+
+    const formattedDate = showTimeZone
+      ? dateParsed.format(`${outputFormat}, ${outputTimeZone}`)
+      : dateParsed.format(outputFormat); // It uses the format() of moment.js
+    return dateParsed.isValid()
+      ? formattedDate // The formatted date
+      : date;
+  }
+
   /**
    * Parses a string date to a JavaScript Date object
    * @static
@@ -130,4 +152,4 @@ class DateUtils {
   }
 }
 
-export { DateUtils };
+export { DateUtils, INPUT_FORMATS };
