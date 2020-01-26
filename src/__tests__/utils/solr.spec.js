@@ -35,12 +35,12 @@ describe("Test query string", () => {
     expect(query.query).toBe('?q=authtemplate:news&sort=news asc');
   });
 
-  test("it has valid query extends adding and rows", ()=> {
+  test("it has valid query extends adding and limit", ()=> {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
     query
       .q('authtemplate:news')
-      .rows(100);
+      .limit(100);
     expect(query.query).toBe('?q=authtemplate:news&rows=100');
   });
 
@@ -52,6 +52,15 @@ describe("Test query string", () => {
       .q('authtemplate:news')
       .addParseObject(parseObj);
     expect(query.parseMap).toStrictEqual(parseObj);
+  });
+
+  test("it has valid query extends adding start", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    query
+      .q('authtemplate:news')
+      .start(0);
+    expect(query.query).toBe('?q=authtemplate:news&start=0');
   });
 });
 

@@ -137,7 +137,6 @@ class Solr {
    */
   addParseKeyValue(key, value) {
     if (!this.__validString(key) && !this.__validString(value)) return this;
-
     this.parseMap[key] = value;
     return this;
   }
@@ -145,7 +144,7 @@ class Solr {
   /**
    * @method addParseObject: Add a object with the equivalences that you expect
    * to receive after the query.
-   * @param obj
+   * @param {Object} obj
    */
   addParseObject(obj) {
     if (!this.__validObj(obj)) return this;
@@ -217,11 +216,12 @@ class Solr {
   }
 
   /**
-   * @method: Add start number to return documents from that index.
+   * @method: start: Add start number to return documents from that index.
    * @param {number} start
    * @returns {Solr}
    */
   start(start = 0) {
+    if(!this.__validNumber(start)) return this;
     if (this.useJSON) {
       this.postQuery.start = start;
     } else {
@@ -231,11 +231,12 @@ class Solr {
   }
 
   /**
-   * @method: Add end number to return documents until that index.
+   * @method: limit: Add end number to return documents until that index.
    * @param {number} limit
    * @returns {Solr}
    */
-  rows(limit) {
+  limit(limit) {
+    if(!this.__validNumber(limit)) return this;
     if (this.useJSON) {
       this.postQuery.limit = limit;
     } else {
@@ -336,6 +337,15 @@ class Solr {
   __validObj(obj){
     const keys = Object.keys(obj);
     return typeof obj === "object" && keys.length && !keys.some(k => !this.__validString(obj[k]));
+  }
+
+  /**
+   * @method __validNumber: validation to avoid no numbers.
+   * @param {Number} number
+   * @private
+   */
+  __validNumber(number){
+    return !Number.isNaN(number) || !Number.isNaN(+number);
   }
 }
 
