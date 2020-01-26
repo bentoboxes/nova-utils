@@ -13,7 +13,7 @@ describe("Test query string", () => {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
     query.q('authtemplate:news')
-    expect(query.query).toBe('?q=authtemplate:news');
+    expect(query.queryString).toBe('?q=authtemplate:news');
   });
 
   test("it has valid query extends adding and fq", ()=> {
@@ -23,7 +23,7 @@ describe("Test query string", () => {
       .q('authtemplate:news')
       .fq('authtemplate:news')
 
-    expect(query.query).toBe('?q=authtemplate:news&fq=authtemplate:news');
+    expect(query.queryString).toBe('?q=authtemplate:news&fq=authtemplate:news');
   });
 
   test("it has valid query extends adding and sort", ()=> {
@@ -32,7 +32,7 @@ describe("Test query string", () => {
     query
       .q('authtemplate:news')
       .sort('news');
-    expect(query.query).toBe('?q=authtemplate:news&sort=news asc');
+    expect(query.queryString).toBe('?q=authtemplate:news&sort=news asc');
   });
 
   test("it has valid query extends adding and limit", ()=> {
@@ -41,17 +41,26 @@ describe("Test query string", () => {
     query
       .q('authtemplate:news')
       .limit(100);
-    expect(query.query).toBe('?q=authtemplate:news&rows=100');
+    expect(query.queryString).toBe('?q=authtemplate:news&rows=100');
   });
 
-  test("it has valid query extends adding and parse Object", ()=> {
+  test("it has valid query extends adding and mapper Object", ()=> {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
     const parseObj = {date: "dateP"};
     query
       .q('authtemplate:news')
-      .addParseObject(parseObj);
+      .addMapperObject(parseObj);
     expect(query.parseMap).toStrictEqual(parseObj);
+  });
+
+  test("it has valid query extends adding and map key value", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    query
+      .q('authtemplate:news')
+      .addMapperKeyValue("a", "b");
+    expect(query.parseMap).toStrictEqual({a: "b"});
   });
 
   test("it has valid query extends adding start", ()=> {
@@ -60,7 +69,7 @@ describe("Test query string", () => {
     query
       .q('authtemplate:news')
       .start(0);
-    expect(query.query).toBe('?q=authtemplate:news&start=0');
+    expect(query.queryString).toBe('?q=authtemplate:news&start=0');
   });
 });
 

@@ -16,9 +16,7 @@ class Solr {
    */
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    this.queryParam = {};
-    this.filterParams = {};
-    this.query = "";
+    this.queryString = "";
     this.parseMap = {};
     this.useJSON = false;
     this.postQuery = {};
@@ -130,23 +128,23 @@ class Solr {
   }
 
   /**
-   * @method addParseKeyValue: Add a pair (key, value) with the equivalences
+   * @method addMapperKeyValue: Add a pair (key, value) with the equivalences
    * that you expect to receive after the query.
    * @param key
    * @param value
    */
-  addParseKeyValue(key, value) {
+  addMapperKeyValue(key, value) {
     if (!this.__validString(key) && !this.__validString(value)) return this;
     this.parseMap[key] = value;
     return this;
   }
 
   /**
-   * @method addParseObject: Add a object with the equivalences that you expect
+   * @method addMapperObject: Add a object with the equivalences that you expect
    * to receive after the query.
    * @param {Object} obj
    */
-  addParseObject(obj) {
+  addMapperObject(obj) {
     if (!this.__validObj(obj)) return this;
     this.parseMap = Object.assign(this.parseMap, obj);
     return this;
@@ -162,7 +160,7 @@ class Solr {
     if (this.useJSON) {
       this.postQuery.filter.push(params);
     } else {
-      this.query += this.__addQueryParam(params ? `fq=${params}` : "");
+      this.queryString += this.__addQueryParam(params ? `fq=${params}` : "");
     }
     return this;
   }
@@ -177,7 +175,7 @@ class Solr {
     if (this.useJSON) {
       this.postQuery.query.push(params);
     } else {
-      this.query += this.__addQueryParam(params ? `q=${params}` : "");
+      this.queryString += this.__addQueryParam(params ? `q=${params}` : "");
     }
     this.isQueryIncluded = true;
     return this;
@@ -194,7 +192,7 @@ class Solr {
       this.postQuery.fields = elements;
     } else {
       if (Array.isArray(elements) && elements.length) {
-        this.query += this.__addQueryParam(`fl=${elements.join(",")}`);
+        this.queryString += this.__addQueryParam(`fl=${elements.join(",")}`);
       }
     }
     return this;
@@ -210,7 +208,7 @@ class Solr {
     if (this.useJSON) {
       this.postQuery.sort = `${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`;
     } else {
-      this.query += this.__addQueryParam(`sort=${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`);
+      this.queryString += this.__addQueryParam(`sort=${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`);
     }
     return this;
   }
@@ -221,11 +219,11 @@ class Solr {
    * @returns {Solr}
    */
   start(start = 0) {
-    if(!this.__validNumber(start)) return this;
+    if (!this.__validNumber(start)) return this;
     if (this.useJSON) {
       this.postQuery.start = start;
     } else {
-      this.query += this.__addQueryParam(`start=${start}`);
+      this.queryString += this.__addQueryParam(`start=${start}`);
     }
     return this;
   }
@@ -236,11 +234,11 @@ class Solr {
    * @returns {Solr}
    */
   limit(limit) {
-    if(!this.__validNumber(limit)) return this;
+    if (!this.__validNumber(limit)) return this;
     if (this.useJSON) {
       this.postQuery.limit = limit;
     } else {
-      this.query += this.__addQueryParam(`rows=${limit}`);
+      this.queryString += this.__addQueryParam(`rows=${limit}`);
     }
     return this;
   }
@@ -252,7 +250,7 @@ class Solr {
   execute() {
     let query = this.useJSON ?
       HttpClient.post(this.baseUrl, this.postQuery) :
-      HttpClient.get(this.baseUrl + this.query);
+      HttpClient.get(this.baseUrl + this.queryString);
 
     return query
       .then((response) => response.json())
@@ -314,7 +312,7 @@ class Solr {
    */
   __addQueryParam(param) {
     if (param) {
-      return this.query ? `&${param}` : `?${param}`;
+      return this.queryString ? `&${param}` : `?${param}`;
     }
     return "";
   }
@@ -334,7 +332,7 @@ class Solr {
    * @param obj
    * @private
    */
-  __validObj(obj){
+  __validObj(obj) {
     const keys = Object.keys(obj);
     return typeof obj === "object" && keys.length && !keys.some(k => !this.__validString(obj[k]));
   }
@@ -344,7 +342,7 @@ class Solr {
    * @param {Number} number
    * @private
    */
-  __validNumber(number){
+  __validNumber(number) {
     return !Number.isNaN(number) || !Number.isNaN(+number);
   }
 }
