@@ -89,5 +89,19 @@ describe("Test Solr utils", () => {
     expect(date).toBe('(a AND b)');
   });
 
+  test("it has valid multiple and clause", ()=> {
+    const date = Solr.and("a", ["b", "c"]);
+    expect(date).toBe('(a:b AND a:c)');
+  });
+
+  test("it has valid or clause", ()=> {
+    const date = Solr.or("a", "b");
+    expect(date).toBe('(a OR b)');
+  });
+
+  test("it has valid multiple or clause", ()=> {
+    const date = Solr.or("a", ["b", "c"]);
+    expect(date).toBe('(a:b OR a:c)');
+  });
 });
 

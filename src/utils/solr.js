@@ -24,6 +24,10 @@ class Solr {
   };
 
 
+  static CONST = {
+    AT: 'authtemplate'
+  };
+
   /**
    * @method and: The AND operator matches documents where both terms exist anywhere
    * in the text of a single document.
@@ -32,7 +36,9 @@ class Solr {
    * @returns {string}
    */
   static and(leftClause, rightClause) {
-    if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
+    if (this.prototype.__validArray(rightClause)) {
+      return `(${rightClause.map(el => `${leftClause}:${el}`).join(" AND ")})`;
+    } else if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
 
     return `(${leftClause} AND ${rightClause})`;
   }
@@ -40,12 +46,14 @@ class Solr {
   /**
    * @method or: The OR operator links two terms and finds a matching document if either
    * of the terms exist in a document.
-   * @param leftClause
-   * @param rightClause
+   * @param {string} leftClause
+   * @param {string | Array<string>} rightClause
    * @returns {string}
    */
   static or(leftClause, rightClause) {
-    if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
+    if (this.prototype.__validArray(rightClause)) {
+      return `(${rightClause.map(el => `${leftClause}:${el}`).join(" OR ")})`;
+    } else if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
 
     return `(${leftClause} OR ${rightClause})`;
   }
@@ -330,6 +338,7 @@ class Solr {
   /**
    * @method __validObj: validation to avoid empty objects.
    * @param obj
+   * @returns {Boolean}
    * @private
    */
   __validObj(obj) {
@@ -337,13 +346,26 @@ class Solr {
     return typeof obj === "object" && keys.length && !keys.some(k => !this.__validString(obj[k]));
   }
 
+
   /**
    * @method __validNumber: validation to avoid no numbers.
    * @param {Number} number
+   * @returns {Boolean}
    * @private
+   *
    */
   __validNumber(number) {
     return !Number.isNaN(number) || !Number.isNaN(+number);
+  }
+
+  /**
+   * @method __validArray: validation to avoid no Arrays or empty Arrays.
+   * @param {Array} number
+   * @returns {Boolean}
+   * @private
+   */
+  __validArray(array) {
+    return Array.isArray(array) && array.length;
   }
 }
 
