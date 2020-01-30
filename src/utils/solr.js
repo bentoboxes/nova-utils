@@ -6,6 +6,14 @@ const SORT = {
   DESC: "desc"
 };
 
+const LOGICAL_OPEATORS = {
+  AND: "AND",
+  OR: "OR",
+  NOT: "!",
+  PROHIBIT: "-",
+  REQUIRED: "+"
+};
+
 const SOLR_FORMAT_DATE = "YYYY-MM-DDThh:mm:ss";
 
 class Solr {
@@ -24,8 +32,51 @@ class Solr {
   };
 
 
-  static CONST = {
-    AT: 'authtemplate'
+  static get FIELDS() {
+    return {
+      ID: "id",
+      LIBRARY_LOCALE: "documentlibrarylocale",
+      TITLE: "title",
+      SHORT_TITLE: "shorttitle",
+      NAME: "name",
+      DESCRIPTION: "description",
+      SUMMARY: "summary",
+      IMG_CAPTION: "imagecaption",
+      THUMB_CAPTION: "thumbnailcaption",
+      WCM_PATH: "wcmpath",
+      WCM_TITLE_PATH: "wcmtitlepath",
+      AUTH_TEMPLATE: "authtemplate",
+      REFERENCE_URL_NAME: "referenceurlname",
+      CONTENT_TYPE: "contenttype",
+      CONTENT_TYPE_TITLE: "contenttypetitle",
+      CONTENT_TYPE_PATH: "contenttypepath",
+      CONTENT_TYPE_PATH_TITLE: "contenttypepathtitle",
+      AUDIENCE_COUNTRY: "audiencecountry",
+      AUDIENCE_COUNTRY_TITLE: "audiencecountrytitle",
+      AUDIENCE_COUNTRY_PATH: "audiencecountrypath",
+      AUDIENCE_COUNTRY_PATH_TITLE: "audiencecountrypathtitle",
+      AUDIENCE_BRAND: "audiencebrand",
+      AUDIENCE_BRAND_TITLE: "audiencebrandtitle",
+      RELATED_HUBS: "relatedHubs",
+      RELATED_HUBS_TITLE: "relatedHubstitle",
+      RELATED_HUBS_PATH: "relatedHubspath",
+      RELATED_HUBS_PATH_TITLE: "relatedHubspathtitle",
+      TARGET_ROLE: "targetingRole",
+      TARGET_ROLE_TITLE: "targetingRoletitle",
+      TARGET_ROLE_PATH: "targetingRolepath",
+      TARGET_ROLE_PATH_TITLE: "targetingRolepathtitle",
+      PUBLISH_DATE: "publishdate",
+      LIBRARY_NAME: "documentlibraryname",
+      ICON: "icon",
+      LINK: "link",
+      MORE_INFO: "moreInformation",
+      THUMBNAIL: "thumbnail",
+      IMAGE: "image",
+      PORTAL_LOCATION: "portallocation",
+      PORTAL_LOCATION_TITLE: "portallocationtitle",
+      PORTAL_LOCATION_PATH: "portallocationpath",
+      PORTAL_LOCATION_PATH_TITLE: "portallocationpathtitle"
+    };
   };
 
   /**
@@ -33,14 +84,11 @@ class Solr {
    * in the text of a single document.
    * @param leftClause
    * @param rightClause
+   * @param useParentheses
    * @returns {string}
    */
-  static and(leftClause, rightClause) {
-    if (this.prototype.__validArray(rightClause)) {
-      return `(${rightClause.map(el => `${leftClause}:${el}`).join(" AND ")})`;
-    } else if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
-
-    return `(${leftClause} AND ${rightClause})`;
+  static and(leftClause, rightClause, useParentheses = true) {
+    return this.prototype.__addMultiClause(leftClause, rightClause, LOGICAL_OPEATORS.AND, useParentheses);
   }
 
   /**
@@ -48,49 +96,43 @@ class Solr {
    * of the terms exist in a document.
    * @param {string} leftClause
    * @param {string | Array<string>} rightClause
+   * @param {Boolean} useParentheses
    * @returns {string}
    */
-  static or(leftClause, rightClause) {
-    if (this.prototype.__validArray(rightClause)) {
-      return `(${rightClause.map(el => `${leftClause}:${el}`).join(" OR ")})`;
-    } else if (!this.prototype.__validString(leftClause) && !this.prototype.__validString(rightClause)) return "";
-
-    return `(${leftClause} OR ${rightClause})`;
+  static or(leftClause, rightClause, useParentheses = true) {
+    return this.prototype.__addMultiClause(leftClause, rightClause, LOGICAL_OPEATORS.OR, useParentheses);
   }
 
   /**
    * @method not: The NOT operator excludes documents that contain the term after NOT.
    * @param {string} clause
+   * @param useParentheses
    * @returns {string}
    */
-  static not(clause) {
-    if (!this.prototype.__validString(clause)) return "";
-
-    return `(! ${clause})`;
+  static not(clause, useParentheses = true) {
+    return this.prototype.__addSingleClause(clause, LOGICAL_OPEATORS.NOT, useParentheses);
   }
 
   /**
    * @method prohibit: Prohibits the following term (that is, matches on fields or documents
    * that do not include that term).
    * @param {string} clause
+   * @param useParentheses
    * @returns {string}
    */
-  static prohibit(clause) {
-    if (!this.prototype.__validString(clause)) return "";
-
-    return `(- ${clause})`;
+  static prohibit(clause, useParentheses = true) {
+    return this.prototype.__addSingleClause(clause, LOGICAL_OPEATORS.PROHIBIT, useParentheses);
   }
 
   /**
    * @method required: requires that the term after required symbol exist somewhere in a field
    * in at least one document in order for the query to return a match.
    * @param {string} clause
+   * @param useParentheses
    * @returns {string}
    */
-  static required(clause) {
-    if (!this.prototype.__validString(clause)) return "";
-
-    return `(+ ${clause})`;
+  static required(clause, useParentheses = true) {
+    return this.prototype.__addSingleClause(clause, LOGICAL_OPEATORS.REQUIRED, useParentheses);
   }
 
   /**
@@ -326,6 +368,49 @@ class Solr {
   }
 
   /**
+   * @method __addMultiClause: Allows add logical operations that depends of 2 or more elements
+   * @param {string} leftClause
+   * @param {string | Array<string>}rightClause
+   * @param {string} type
+   * @param {Boolean} useParentheses
+   * @returns {string}
+   * @private
+   */
+  __addMultiClause(leftClause, rightClause, type, useParentheses) {
+    if (this.__validArray(rightClause)) {
+      return this.__addParentheses(`${rightClause.map(el => `${leftClause}:${el}`).join(` ${type} `)}`, useParentheses);
+    } else if (!this.__validString(leftClause) && !this.__validString(rightClause)) return "";
+
+    return this.__addParentheses(`${leftClause} ${type} ${rightClause}`, useParentheses);
+  }
+
+  /**
+   * @method __addSingleClause: Allows add logical operations that depends of 1 element
+   * @param {string} clause
+   * @param {string} type
+   * @param {Boolean} useParentheses
+   * @returns {string}
+   * @private
+   */
+  __addSingleClause(clause, type, useParentheses) {
+    if (!this.__validString(clause)) return "";
+
+    return this.__addParentheses(`${type} ${clause}`, useParentheses);
+  }
+
+  /**
+   * @method __addParentheses: Add parentheses to a string
+   * @param {string} clause
+   * @param {Boolean} shouldInclude
+   * @return {string}
+   * @private
+   */
+
+  __addParentheses(clause, shouldInclude) {
+    return `${shouldInclude ? "(" : ""}${clause}${shouldInclude ? ")" : ""}`;
+  }
+
+  /**
    * @method __validString: validation to avoid add empty strings
    * @param input
    * @returns {boolean}
@@ -360,7 +445,7 @@ class Solr {
 
   /**
    * @method __validArray: validation to avoid no Arrays or empty Arrays.
-   * @param {Array} number
+   * @param {Array} array
    * @returns {Boolean}
    * @private
    */

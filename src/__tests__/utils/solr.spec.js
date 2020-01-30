@@ -67,7 +67,7 @@ describe("Test query string", () => {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
     query
-      .q('authtemplate:news')
+      .q(Solr.FIELDS.AUTH_TEMPLATE + ':news')
       .start(0);
     expect(query.queryString).toBe('?q=authtemplate:news&start=0');
   });
