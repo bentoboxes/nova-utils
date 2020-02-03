@@ -14,6 +14,11 @@ const LOGICAL_OPEATORS = {
   REQUIRED: "+"
 };
 
+const NOVA_SOLR_DEFAULTS = {
+  get: "/myservices/search-service/doRequest/dp-content/dprender",
+  post: ""
+};
+
 const SOLR_FORMAT_DATE = "YYYY-MM-DDThh:mm:ss";
 
 class Solr {
@@ -26,8 +31,11 @@ class Solr {
     this.baseUrl = baseUrl;
     this.queryString = "";
     this.parseMap = {};
-    this.useJSON = false;
-    this.postQuery = {};
+    this.usePost = false;
+    this.postQuery = {
+      query: [],
+      filter: []
+    };
     this.isQueryIncluded = false;
   };
 
@@ -75,7 +83,12 @@ class Solr {
       PORTAL_LOCATION: "portallocation",
       PORTAL_LOCATION_TITLE: "portallocationtitle",
       PORTAL_LOCATION_PATH: "portallocationpath",
-      PORTAL_LOCATION_PATH_TITLE: "portallocationpathtitle"
+      PORTAL_LOCATION_PATH_TITLE: "portallocationpathtitle",
+      CATEGORIES: "categories",
+      CATEGORIES_TITLE: "categoriestitle",
+      CATEGORIES_PATH: "categoriespath",
+      CATEGORIES_PATH_TITLE: "categoriespathtitle",
+      ANSWER: "answer"
     };
   };
 
@@ -173,7 +186,7 @@ class Solr {
    * @returns {Solr}
    */
   post() {
-    this.useJSON = true;
+    this.usePost = true;
     return this;
   }
 
@@ -207,7 +220,7 @@ class Solr {
    */
   fq(params) {
     if (!this.__validString(params)) return this;
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.filter.push(params);
     } else {
       this.queryString += this.__addQueryParam(params ? `fq=${params}` : "");
@@ -222,7 +235,7 @@ class Solr {
    */
   q(params) {
     if (!this.__validString(params)) return this;
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.query.push(params);
     } else {
       this.queryString += this.__addQueryParam(params ? `q=${params}` : "");
@@ -238,7 +251,7 @@ class Solr {
    * @returns {Solr}
    */
   fl(elements) {
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.fields = elements;
     } else {
       if (Array.isArray(elements) && elements.length) {
@@ -255,7 +268,7 @@ class Solr {
    * @returns {Solr}
    */
   sort(paramName, asc = true) {
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.sort = `${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`;
     } else {
       this.queryString += this.__addQueryParam(`sort=${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`);
@@ -270,7 +283,7 @@ class Solr {
    */
   start(start = 0) {
     if (!this.__validNumber(start)) return this;
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.start = start;
     } else {
       this.queryString += this.__addQueryParam(`start=${start}`);
@@ -285,7 +298,7 @@ class Solr {
    */
   limit(limit) {
     if (!this.__validNumber(limit)) return this;
-    if (this.useJSON) {
+    if (this.usePost) {
       this.postQuery.limit = limit;
     } else {
       this.queryString += this.__addQueryParam(`rows=${limit}`);
@@ -298,9 +311,12 @@ class Solr {
    * @returns {Promise|*|Promise<T | Array>|*}
    */
   execute() {
-    let query = this.useJSON ?
-      HttpClient.post(this.baseUrl, this.postQuery) :
-      HttpClient.get(this.baseUrl + this.queryString);
+
+    const baseUrl = this.baseUrl ? this.baseUrl : this.usePost ? NOVA_SOLR_DEFAULTS.post : NOVA_SOLR_DEFAULTS.get;
+
+    let query = this.usePost ?
+      HttpClient.post(baseUrl, this.postQuery) :
+      HttpClient.get(baseUrl + this.queryString);
 
     return query
       .then((response) => response.json())

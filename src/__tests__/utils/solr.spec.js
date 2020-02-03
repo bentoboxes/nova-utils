@@ -105,3 +105,14 @@ describe("Test Solr utils", () => {
   });
 });
 
+describe("Test query post", () => {
+  test("it has valid query extends", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+
+    query.post()
+      .q('authtemplate:news');
+    expect(query.postQuery).toStrictEqual({query: ["authtemplate:news"], filter:[]});
+  });
+});
+
