@@ -88,7 +88,8 @@ class Solr {
       CATEGORIES_TITLE: "categoriestitle",
       CATEGORIES_PATH: "categoriespath",
       CATEGORIES_PATH_TITLE: "categoriespathtitle",
-      ANSWER: "answer"
+      ANSWER: "answer",
+      TOPICS: "topics"
     };
   };
 
