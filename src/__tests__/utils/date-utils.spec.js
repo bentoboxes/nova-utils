@@ -210,6 +210,22 @@ describe("it formats a date with a params object", () => {
     expect(resultingDate).toBe(outputFormattedDate);
   });
 
+
+  test("using a params object where outputFormat is unique date", () => {
+    const outputFormattedDate = "23/02/2019";
+
+
+    const params = {
+      showTimeZone: false,
+      outputFormat: "MM/DD/YYYY",
+      date: "2019-02-23T20:43:23"
+    };
+
+    const resultingDate = DateUtils.formatDateByObj(params);
+
+    expect(resultingDate).toBe(outputFormattedDate);
+  });
+
   test("using a params object where inputFormat === 'ISO'", () => {
     const outputFormattedDate = "Feb, CST";
     const params = {
