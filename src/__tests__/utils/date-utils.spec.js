@@ -212,13 +212,13 @@ describe("it formats a date with a params object", () => {
 
 
   test("using a params object where outputFormat is unique date", () => {
-    const outputFormattedDate = "23/02/2019";
+    const outputFormattedDate = "02/23/2019";
 
 
     const params = {
       showTimeZone: false,
       outputFormat: "MM/DD/YYYY",
-      date: "2019-02-23T20:43:23"
+      date: "2019-02-23T22:43:23.656Z"
     };
 
     const resultingDate = DateUtils.formatDateByObj(params);
