@@ -71,6 +71,29 @@ describe("Test query string", () => {
       .start(0);
     expect(query.queryString).toBe('?q=authtemplate:news&start=0');
   });
+
+
+  /*test("it has valid query restrict by roles GET", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    query
+      .q(Solr.FIELDS.AUTH_TEMPLATE + ':news')
+      .strictByRoles();
+
+    expect(query.testRoles()).toBe('/myservices/search-service/doRequest/dp-content/select?q=authtemplate:news&forceRoles=true');
+  });
+
+  test("it has valid query restrict by roles POST", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    query
+      .post()
+      .q(Solr.FIELDS.AUTH_TEMPLATE + ':news')
+      .strictByRoles();
+
+    expect(query.testRoles()).toBe('/myservices/search-service/doRequest/dp-content/select?forceRoles=true');
+  });*/
+
 });
 
 describe("Test Solr utils", () => {
@@ -91,7 +114,7 @@ describe("Test Solr utils", () => {
 
   test("it has valid multiple and clause", ()=> {
     const date = Solr.and("a", ["b", "c"]);
-    expect(date).toBe('(a:b AND a:c)');
+    expect(date).toBe('(a:(b c))');
   });
 
   test("it has valid or clause", ()=> {
@@ -101,7 +124,7 @@ describe("Test Solr utils", () => {
 
   test("it has valid multiple or clause", ()=> {
     const date = Solr.or("a", ["b", "c"]);
-    expect(date).toBe('(a:b OR a:c)');
+    expect(date).toBe('(a:(b c))');
   });
 });
 

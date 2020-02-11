@@ -20,6 +20,7 @@ const NOVA_SOLR_DEFAULTS = {
 };
 
 const SOLR_FORMAT_DATE = "YYYY-MM-DDThh:mm:ss";
+const STRICT_ROLES_PARAM = "forceRoles=true";
 
 class Solr {
 
@@ -37,6 +38,7 @@ class Solr {
       filter: []
     };
     this.isQueryIncluded = false;
+    this.restrictRoles = false;
   };
 
 
@@ -313,6 +315,17 @@ class Solr {
   }
 
   /**
+   * @method strictByRoles
+   * @returns {Solr}
+   */
+
+  restrictByRoles() {
+    this.restrictRoles = true;
+
+    return this;
+  }
+
+  /**
    * @method execute: this function make an ajax call to Solr and retrieve the response.
    * @returns {Promise|*|Promise<T | Array>|*}
    */
@@ -321,8 +334,8 @@ class Solr {
     const baseUrl = this.baseUrl ? this.baseUrl : this.usePost ? NOVA_SOLR_DEFAULTS.post : NOVA_SOLR_DEFAULTS.get;
 
     let query = this.usePost ?
-      HttpClient.post(baseUrl, this.postQuery) :
-      HttpClient.get(baseUrl + this.queryString);
+      HttpClient.post(baseUrl + `${this.restrictRoles ? '?' + STRICT_ROLES_PARAM : ''}`, this.postQuery) :
+      HttpClient.get(baseUrl + this.queryString + `${this.restrictRoles ? this.__addQueryParam(STRICT_ROLES_PARAM) : '' }`);
 
     return query
       .then((response) => response.json())
@@ -335,6 +348,15 @@ class Solr {
       });
   }
 
+  /*testRoles(){
+    const baseUrl = this.baseUrl ? this.baseUrl : this.usePost ? NOVA_SOLR_DEFAULTS.post : NOVA_SOLR_DEFAULTS.get;
+
+    let query = this.usePost ?
+      baseUrl + `${this.strictRoles ? '?' + STRICT_ROLES_PARAM : ''}`:
+      baseUrl + this.queryString + `${this.strictRoles ? this.__addQueryParam(STRICT_ROLES_PARAM) : '' }`
+
+    return query;
+  }*/
 
   /**
    * @method __parseData: this method allows the parse of the information retrieving for Solr,
@@ -355,18 +377,16 @@ class Solr {
 
       if (keys.length) {
         response = response.reduce((acc, curr) => {
-          let obj = {};
           keys.forEach(key => {
             if (Array.isArray(curr[key])) {
               for (let item of curr[key]) {
-                obj[item] = curr[key];
+                curr[item] = curr[key];
               }
             } else {
-              obj[this.parseMap[key]] = curr[key];
+              curr[this.parseMap[key]] = curr[key];
             }
           });
-          acc.push(obj);
-
+          acc.push(curr);
           return acc;
         }, []);
       }
@@ -400,7 +420,7 @@ class Solr {
    */
   __addMultiClause(leftClause, rightClause, type, useParentheses) {
     if (this.__validArray(rightClause)) {
-      return this.__addParentheses(`${rightClause.map(el => `${leftClause}:${el}`).join(` ${type} `)}`, useParentheses);
+      return this.__addParentheses(`${leftClause}:${this.__addParentheses(rightClause.join(" "), true)}`, useParentheses);
     } else if (!this.__validString(leftClause) && !this.__validString(rightClause)) return "";
 
     return this.__addParentheses(`${leftClause} ${type} ${rightClause}`, useParentheses);
