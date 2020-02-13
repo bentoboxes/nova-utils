@@ -54,6 +54,34 @@ describe("Test query string", () => {
     expect(query.parseMap).toStrictEqual(parseObj);
   });
 
+
+  test("it has valid query extends adding and mapper Object", ()=> {
+    const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
+    const query = new Solr(baseUrl);
+    const originalObj = {
+      "topicstitle":["Tech Talk"],
+      "contenttypetitle":["Videos"],
+      "relatedHubstitle":["Skid Steer Loaders"],
+      "publishdate":"2016-05-25T22:00:00Z",
+      };
+
+    const parseObj = {[Solr.FIELDS.TOPICS_TITLE]: "topics"};
+
+    const expecteObj = {
+      "topicstitle":["Tech Talk"],
+      "topics":["Tech Talk"],
+      "contenttypetitle":["Videos"],
+      "relatedHubstitle":["Skid Steer Loaders"],
+      "publishdate":"2016-05-25T22:00:00Z",
+    };
+
+    query
+      .addMapperObject(parseObj);
+
+
+    expect(query.__parseData({response: {docs: [originalObj]}})).toStrictEqual([expecteObj]);
+  });
+
   test("it has valid query extends adding and map key value", ()=> {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
@@ -71,6 +99,8 @@ describe("Test query string", () => {
       .start(0);
     expect(query.queryString).toBe('?q=authtemplate:news&start=0');
   });
+
+
 
 
   /*test("it has valid query restrict by roles GET", ()=> {
@@ -125,6 +155,12 @@ describe("Test Solr utils", () => {
   test("it has valid multiple or clause", ()=> {
     const date = Solr.or("a", ["b", "c"]);
     expect(date).toBe('(a:(b c))');
+  });
+
+
+  test("it has valid strict clause", ()=> {
+    const string = Solr.strictString("a");
+    expect(string).toBe('"a"');
   });
 });
 

@@ -101,6 +101,15 @@ class Solr {
   };
 
   /**
+   * @method strictString: this function makes strict an string.
+   * @param clause
+   * @returns {string}
+   */
+  static strictString(clause) {
+    return this.prototype.__validString(clause) ? `"${clause}"` : '';
+  }
+
+  /**
    * @method and: The AND operator matches documents where both terms exist anywhere
    * in the text of a single document.
    * @param leftClause
@@ -366,6 +375,7 @@ class Solr {
    * @private
    */
   __parseData(data) {
+
     if (
       data &&
       data.response &&
@@ -378,8 +388,8 @@ class Solr {
       if (keys.length) {
         response = response.reduce((acc, curr) => {
           keys.forEach(key => {
-            if (Array.isArray(curr[key])) {
-              for (let item of curr[key]) {
+            if (Array.isArray(keys[key])) {
+              for (let item of keys[key]) {
                 curr[item] = curr[key];
               }
             } else {

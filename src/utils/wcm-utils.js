@@ -68,6 +68,18 @@ class IBMWCMUtils {
   }
 
   /**
+   * writes a WCM URL to its corresponding URI path.
+   * @static
+   * @param {string} target - The target path to be written
+   * @return {string} a URI path ready to be used to redirect with the IBM portal theme context
+   */
+  static getURIPath(target) {
+    if (typeof url === "string") {
+      return "?1dmy&urile=wcm%3apath%3a" + encodeURIComponent(url);
+    }
+  }
+
+  /**
    * Re-writes a Youtube URL like: https://www.youtube.com/watch?v=THfkgvI_60o
    * to create a new URL to embed the video: https://www.youtube.com/embed/THfkgvI_60o
    * @static
