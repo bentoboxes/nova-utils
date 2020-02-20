@@ -97,7 +97,8 @@ class Solr {
       TOPICS_TITLE_PATH: "topicstitlepath",
       START_DATE: "startDateAndTime",
       END_DATE: "endDateAndTime",
-      QUESTION_TYPE: "questionType"
+      QUESTION_TYPE: "questionType",
+      LOCATION: "location"
     };
   };
 
