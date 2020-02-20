@@ -74,8 +74,8 @@ class IBMWCMUtils {
    * @return {string} a URI path ready to be used to redirect with the IBM portal theme context
    */
   static getURIPath(target) {
-    if (typeof url === "string") {
-      return "?1dmy&urile=wcm%3apath%3a" + encodeURIComponent(url);
+    if (typeof target === "string") {
+      return "?1dmy&urile=wcm%3apath%3a" + encodeURIComponent(target);
     }
   }
 
