@@ -20,7 +20,7 @@ const NOVA_SOLR_DEFAULTS = {
 };
 
 const SOLR_FORMAT_DATE = "YYYY-MM-DDThh:mm:ss";
-const STRICT_ROLES_PARAM = "forceRoles=true";
+const STRICT_ROLES_PARAM = "targetingRoles=true";
 
 class Solr {
 
