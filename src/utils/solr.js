@@ -98,7 +98,9 @@ class Solr {
       START_DATE: "startDateAndTime",
       END_DATE: "endDateAndTime",
       QUESTION_TYPE: "questionType",
-      LOCATION: "location"
+      LOCATION: "location",
+      NAME_SORT: "name_sorting",
+      TITLE_SORT: "title_sorting"
     };
   };
 

@@ -92,7 +92,7 @@ describe("it parses a data", () => {
     const inputDate = "2020-12-30 13:44:23";
 
     const resultingDateObj = DateUtils.parseDate(inputDate);
-    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+    const expectedDateAsString = "2020-12-30T18:44:23.000Z";
 
     expect(resultingDateObj instanceof Date).toBe(true);
 
@@ -105,7 +105,7 @@ describe("it parses a data", () => {
     const inputFormat = "MM/DD/YYYY HH:mm:ss";
 
     const resultingDateObj = DateUtils.parseDate(inputDate, inputFormat);
-    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+    const expectedDateAsString = "2020-12-30T18:44:23.000Z";
 
     expect(resultingDateObj instanceof Date).toBe(true);
 
@@ -118,7 +118,7 @@ describe("it parses a data", () => {
     const inputFormat = "MM/DD/YYYY HH:mm:ss";
 
     const resultingDateObj = DateUtils.parseDate(inputDate, inputFormat);
-    const expectedDateAsString = "2020-12-30T19:44:23.000Z";
+    const expectedDateAsString = "2020-12-30T18:44:23.000Z";
 
     expect(resultingDateObj instanceof Date).toBe(true);
 
@@ -202,7 +202,7 @@ describe("it formats a date with a params object", () => {
       outputFormat: "DD/MM/YYYY",
       inputTimeZone: "America/Chicago",
       inputFormat: "SIMPLE_ISO",
-      date: "2019-02-23T20:43:23"
+      date: "2019-02-23T20:43:23z"
     };
 
     const resultingDate = DateUtils.formatDateByObj(params);

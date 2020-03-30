@@ -11,8 +11,8 @@ const INPUT_FORMATS = {
 
 const DEFAULT_INPUT_FORMAT = INPUT_FORMATS.SIMPLE_ISO;
 const DEFAULT_OUTPUT_FORMAT = "DD/MM/YYYY";
-const DEFAULT_TIME_ZONE_INPUT = "America/Los_Angeles";
-const DEFAULT_TIME_ZONE_OUTPUT = "z";
+const DEFAULT_TIME_ZONE_INPUT = "";
+const DEFAULT_TIME_ZONE_OUTPUT = "";
 
 /** Class with static methods related to dates' management */
 class DateUtils {
