@@ -99,8 +99,8 @@ class Solr {
       END_DATE: "endDateAndTime",
       QUESTION_TYPE: "questionType",
       LOCATION: "location",
-      NAME_SORT: "name_sorting",
-      TITLE_SORT: "title_sorting"
+      NAME_SORT: "namesorting",
+      TITLE_SORT: "titlesorting"
     };
   };
 
@@ -110,7 +110,7 @@ class Solr {
    * @returns {string}
    */
   static strictString(clause) {
-    return this.prototype.__validString(clause) ? `"${clause}"` : '';
+    return this.prototype.__validString(clause) ? `"${clause}"` : "";
   }
 
   /**
@@ -255,6 +255,7 @@ class Solr {
    * @returns {Solr}
    */
   q(params) {
+    console.log(params);
     if (!this.__validString(params)) return this;
     if (this.usePost) {
       this.postQuery.query.push(params);
@@ -289,11 +290,19 @@ class Solr {
    * @returns {Solr}
    */
   sort(paramName, asc = true) {
-    if (this.usePost) {
-      this.postQuery.sort = `${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`;
-    } else {
-      this.queryString += this.__addQueryParam(`sort=${paramName} ${asc ? SORT["ASC"] : SORT["DESC"]}`);
+
+    if (!Array.isArray(paramName) && !Array.isArray(asc)) {
+      paramName = [paramName];
+      asc = [asc];
     }
+
+    if (this.usePost) {
+      this.postQuery.sort = this.__addMultipleSort(paramName, asc);
+    } else {
+      this.queryString += this.__addQueryParam(`sort=${this.__addMultipleSort(paramName, asc)}`);
+    }
+
+
     return this;
   }
 
@@ -347,8 +356,8 @@ class Solr {
     const baseUrl = this.baseUrl ? this.baseUrl : this.usePost ? NOVA_SOLR_DEFAULTS.post : NOVA_SOLR_DEFAULTS.get;
 
     let query = this.usePost ?
-      HttpClient.post(baseUrl + `${this.restrictRoles ? '?' + STRICT_ROLES_PARAM : ''}`, this.postQuery) :
-      HttpClient.get(baseUrl + this.queryString + `${this.restrictRoles ? this.__addQueryParam(STRICT_ROLES_PARAM) : '' }`);
+      HttpClient.post(baseUrl + `${this.restrictRoles ? "?" + STRICT_ROLES_PARAM : ""}`, this.postQuery) :
+      HttpClient.get(baseUrl + this.queryString + `${this.restrictRoles ? this.__addQueryParam(STRICT_ROLES_PARAM) : ""}`);
 
     return query
       .then((response) => response.json())
@@ -370,6 +379,17 @@ class Solr {
 
     return query;
   }*/
+
+
+  /**
+   * @method __addMultipleSort: this method allows add multiple instance of sort to Solr query
+   * @param {Array} params
+   * @returns {string} sorting
+   * @private
+   */
+  __addMultipleSort(params, sorting) {
+      return params.map((param, i) => `${param} ${sorting[i] ? SORT["ASC"] : SORT["DESC"]}`).join(", ");
+  }
 
   /**
    * @method __parseData: this method allows the parse of the information retrieving for Solr,

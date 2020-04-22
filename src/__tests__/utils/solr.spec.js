@@ -12,7 +12,9 @@ describe("Test query string", () => {
   test("it has valid query extends", ()=> {
     const baseUrl = "/myservices/search-service/doRequest/dp-content/select";
     const query = new Solr(baseUrl);
-    query.q('authtemplate:news')
+    console.log(query);
+    query.q('authtemplate:news');
+
     expect(query.queryString).toBe('?q=authtemplate:news');
   });
 
