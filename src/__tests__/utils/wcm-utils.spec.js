@@ -74,6 +74,46 @@ test("it re-writes a WCM URL to its corresponding URI path using a virtual conte
   expect(resultingURIPath).toBe(expectedURIPath);
 });
 
+test("it re-writes a Youtube URL to be embedded from watch +", () => {
+  const youtubeURL = "https://www.youtube.com/watch?v=8P48t_f9JhA";
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(
+    youtubeURL
+  );
+  const expectedURL = "https://www.youtube.com/embed/8P48t_f9JhA";
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
+test("it re-writes a Youtube URL to be embedded from embed", () => {
+  const youtubeURL = "https://www.youtube.com/embed/tJEstofQWXA";
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(
+    youtubeURL
+  );
+  const expectedURL = "https://www.youtube.com/embed/tJEstofQWXA";
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
+test("it re-writes a Youtube URL to be embedded from small", () => {
+  const youtubeURL = "https://youtu.be/tJEstofQWXA";
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(
+    youtubeURL
+  );
+  const expectedURL = "https://www.youtube.com/embed/tJEstofQWXA";
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
+test("it re-writes a Youtube URL to be embedded", () => {
+  const youtubeURL = "https://www.youtube.com/watch?v=tJEstofQWXA&feature=youtu.be";
+  const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(
+    youtubeURL
+  );
+  const expectedURL = "https://www.youtube.com/embed/tJEstofQWXA";
+
+  expect(resultingYoutubeURL).toBe(expectedURL);
+});
+
 test("it re-writes a Youtube URL to be embedded", () => {
   const youtubeURL = "https://www.youtube.com/watch?v=8P48t_f9JhA";
   const resultingYoutubeURL = IBMWCMUtils.convertYoutubeUrlToBeEmbedded(

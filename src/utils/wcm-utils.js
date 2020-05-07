@@ -87,10 +87,18 @@ class IBMWCMUtils {
    * @return {string} a Youtube URL ready to be embedded in an iframe
    */
   static convertYoutubeUrlToBeEmbedded(youtubeURL) {
+    let youtubeKey = "";
     if (typeof youtubeURL === "string") {
-      const youtubeKey = youtubeURL.substring(
-        youtubeURL.indexOf("watch?v=") + 8
-      );
+      if(youtubeURL.match(new RegExp("https://www.youtube.com/embed/", "gi"))){
+        return youtubeURL;
+      }else if(youtubeURL.indexOf("watch?v=") !== -1){
+        const lastPart = youtubeURL.substring(youtubeURL.indexOf("watch?v=") + 8);
+        youtubeKey = lastPart.split("&")[0];
+      }else{
+        const lastPart = youtubeURL.split("/");
+        youtubeKey = lastPart[lastPart.length - 1].split("&")[0];
+      }
+
       return "https://www.youtube.com/embed/" + youtubeKey;
     }
     return "#";
