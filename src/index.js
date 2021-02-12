@@ -8,6 +8,8 @@ import { LodashUtils } from "./utils/lodash-utils";
 import { DeviceUtils } from "./utils/device-utils";
 import { HttpClient } from "./http-client";
 import { Solr } from "./utils/solr";
+import SessionStorageStateAPI from "./utils/session-state";
+import BrowserHistoryStateAPI from "./utils/browser-history-state";
 import { VERSION_MANAGER } from "./utils/version";
 import { MIME_TYPES } from "./enums/mime-types";
 
@@ -25,7 +27,9 @@ export {
   HttpClient,
   version,
   MIME_TYPES,
-  Solr
+  Solr,
+  SessionStorageStateAPI,
+  BrowserHistoryStateAPI
 };
 
 //  Following code is not needed anymore thanks to Rollup configuration
