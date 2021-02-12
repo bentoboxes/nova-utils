@@ -57,10 +57,7 @@ class WebBrowserUtils {
     const expirationTime = 730 * 24 * 60 * 60 * 1000;
     date.setTime(date.getTime() + expirationTime);
     const expires =
-      cookieSession === true
-        ? ""
-        : "; expires=" + date.toUTCString();
-
+      cookieSession === true ? "" : "; expires=" + date.toUTCString();
 
     cookieValue = escape(cookieValue) + expires;
     cookieValue =
@@ -77,7 +74,7 @@ class WebBrowserUtils {
     // In order to delete a cookie set the expires date to something in the past. A function that does this
     // would be.
     document.cookie =
-      cookieName + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      cookieName + "=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   }
 
   /**
@@ -132,6 +129,31 @@ class WebBrowserUtils {
     }
 
     return urlParams.toString();
+  }
+
+  static hasCookie(key) {
+    let cookie = WebBrowserUtils.getCookie(key) || "";
+    return cookie.length > 0;
+  }
+
+  static setCookie(data) {
+    let cookieDataStr = WebBrowserUtils.createCookieStr(data) || "";
+    document.cookie = this.createCookieStr(cookieDataStr);
+  }
+
+  static createCookieStr(data) {
+    let cookieStr = "";
+    if (typeof data === "object") {
+      let keys = Object.keys(data) || [];
+      let length = keys.length - 1;
+      keys.forEach((key, index) => {
+        let separator = index < length ? ";" : "";
+        let value = data[key];
+        value = value ? "=" + value : "";
+        cookieStr += key + value + separator;
+      });
+    }
+    return cookieStr;
   }
 }
 
