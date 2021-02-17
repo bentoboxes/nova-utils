@@ -137,8 +137,7 @@ class WebBrowserUtils {
   }
 
   static setCookie(data) {
-    let cookieDataStr = WebBrowserUtils.createCookieStr(data) || "";
-    document.cookie = this.createCookieStr(cookieDataStr);
+    document.cookie = WebBrowserUtils.createCookieStr(data) || "";
   }
 
   static createCookieStr(data) {
