@@ -154,6 +154,34 @@ class WebBrowserUtils {
     }
     return cookieStr;
   }
+
+  static createElement(tagName, attrs) {
+    let $el = document.createElement(tagName);
+    if (typeof attrs === "object") {
+      Object.keys(attrs).forEach(key => {
+        const val = attrs[key];
+        $el.setAttribute(key, val);
+      });
+    }
+    return $el;
+  }
+
+  static downloadBlob (blob, fileName) {
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, fileName);
+    } else {
+      const url = URL.createObjectURL(blob);
+      let $anchor = this.createElement("a", {
+        target: "_blank",
+        href: url,
+        download: fileName
+      });
+      $anchor.style.visibility = "hidden";
+      document.body.appendChild($anchor);
+      $anchor.click();
+      document.body.removeChild($anchor);
+    }
+  }
 }
 
 export { WebBrowserUtils };
