@@ -166,7 +166,7 @@ class WebBrowserUtils {
     return $el;
   }
 
-  static downloadBlob (blob, fileName) {
+  static downloadBlob(blob, fileName) {
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, fileName);
     } else {
@@ -181,6 +181,37 @@ class WebBrowserUtils {
       $anchor.click();
       document.body.removeChild($anchor);
     }
+  }
+
+  static dispatchCustomEvent(name, options, $root = document) {
+    let customEvent = this.createCustomEvent(name, options);
+    $root.dispatchEvent(customEvent);
+  }
+
+  static createCustomEvent(name, options) {
+    let customEvent;
+    if (this.isConstructor(CustomEvent)) {
+      customEvent = new CustomEvent(name, options);
+    } else {
+      customEvent = document.createEvent("CustomEvent");
+      customEvent.initCustomEvent(
+        name,
+        options.bubbles,
+        options.cancelable,
+        options.detail
+      );
+    }
+    return customEvent;
+  }
+
+  static isConstructor(Fn) {
+    try {
+      // eslint-disable-next-line no-new
+      new Fn();
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 }
 
