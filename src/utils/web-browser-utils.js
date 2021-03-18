@@ -183,35 +183,37 @@ class WebBrowserUtils {
     }
   }
 
-  static dispatchCustomEvent(name, options, $root = document) {
-    let customEvent = this.createCustomEvent(name, options);
+  static emit(name, detail, options, $root = document) {
+    let customEvent = this.createCustomEvent(name, detail, options);
     $root.dispatchEvent(customEvent);
   }
 
-  static createCustomEvent(name, options) {
+  static on(name, handler, $root = document) {
+    $root.addEventListener(name, handler);
+  }
+
+  static removeListener(name, handler, $root) {
+    $root.removeListener(name, handler);
+  }
+
+  static createCustomEvent(name, detail, options = {}) {
     let customEvent;
-    if (this.isConstructor(CustomEvent)) {
-      customEvent = new CustomEvent(name, options);
-    } else {
+    try {
+      customEvent = new CustomEvent(name, {
+        ...options,
+        detail
+      });
+    } catch (e) {
+      // IE
       customEvent = document.createEvent("CustomEvent");
       customEvent.initCustomEvent(
         name,
         options.bubbles,
         options.cancelable,
-        options.detail
+        detail
       );
     }
     return customEvent;
-  }
-
-  static isConstructor(Fn) {
-    try {
-      // eslint-disable-next-line no-new
-      new Fn();
-    } catch (e) {
-      return false;
-    }
-    return true;
   }
 }
 

@@ -66,7 +66,7 @@ module.exports = {
     "implicit-arrow-linebreak": ["error", "beside"],
     indent: "off",
     "indent-legacy": "off",
-    "init-declarations": "warn",
+    "init-declarations": "off",
     "jsx-quotes": "error",
     "key-spacing": "error",
     "keyword-spacing": [
